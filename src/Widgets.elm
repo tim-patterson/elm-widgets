@@ -80,11 +80,11 @@ renderCssSelector styleHash selector style =
   let
     body = String.concat <| mapDictToList renderCssLine style
   in
-    String.concat [".style", toString styleHash, selector, " {", body, "}\n" ]
+    String.concat [".style", toString styleHash, selector, " {\n", body, "}\n" ]
 
 renderCssLine : String -> String -> String
 renderCssLine k v =
-  String.concat([k, ": ", v, ";\n"])
+  String.concat(["  ", k, ": ", v, ";\n"])
 
 mapDictToList : (comparable -> v -> a) -> Dict comparable v -> List a
 mapDictToList f dict =
