@@ -54,6 +54,7 @@ input placeholderTxt inputType isRequired =
         , ("-webkit-transform", "translateY(-20px)")
         , ("transform", "translateY(-20px)")
         , ("visibility", "visible !important")
+        , ("display", "block !important")
         ]
     styles = fromList
       [ ("", baseStyle)
