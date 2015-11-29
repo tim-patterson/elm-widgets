@@ -11606,6 +11606,108 @@ Elm.MaterialWidgets.Button.make = function (_elm) {
    };
    return _elm.MaterialWidgets.Button.values = {_op: _op
                                                ,button: button};
+};Elm.MaterialWidgets = Elm.MaterialWidgets || {};
+Elm.MaterialWidgets.Input = Elm.MaterialWidgets.Input || {};
+Elm.MaterialWidgets.Input.make = function (_elm) {
+   "use strict";
+   _elm.MaterialWidgets = _elm.MaterialWidgets || {};
+   _elm.MaterialWidgets.Input = _elm.MaterialWidgets.Input || {};
+   if (_elm.MaterialWidgets.Input.values)
+   return _elm.MaterialWidgets.Input.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Widgets = Elm.Widgets.make(_elm);
+   var _op = {};
+   var render = F3(function (styles,attrs,children) {
+      var _p0 = A3($Widgets.renderHelper,styles,attrs,children);
+      var attrsWithStyle = _p0._0;
+      var childrenHtml = _p0._1;
+      var mergedStyles = _p0._2;
+      return {ctor: "_Tuple2"
+             ,_0: A2($Html.input,attrsWithStyle,childrenHtml)
+             ,_1: mergedStyles};
+   });
+   var input = F3(function (placeholderTxt,inputType,isRequired) {
+      var attrs = _U.list([$Html$Attributes.required(isRequired)
+                          ,$Html$Attributes.placeholder(placeholderTxt)
+                          ,$Html$Attributes.type$(inputType)]);
+      var placeholderFocusStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                                          ,_0: "color"
+                                                          ,_1: "#1abc9c"}
+                                                         ,{ctor: "_Tuple2",_0: "font-size",_1: "11px"}
+                                                         ,{ctor: "_Tuple2"
+                                                          ,_0: "-webkit-transform"
+                                                          ,_1: "translateY(-20px)"}
+                                                         ,{ctor: "_Tuple2",_0: "transform",_1: "translateY(-20px)"}
+                                                         ,{ctor: "_Tuple2",_0: "visibility",_1: "visible !important"}]));
+      var placeholderStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                                     ,_0: "-webkit-transition"
+                                                     ,_1: "all 0.3s ease-in-out"}
+                                                    ,{ctor: "_Tuple2"
+                                                     ,_0: "transition"
+                                                     ,_1: "all 0.3s ease-in-out"}]));
+      var focusStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                               ,_0: "box-shadow"
+                                               ,_1: "none"}
+                                              ,{ctor: "_Tuple2",_0: "outline",_1: "none"}
+                                              ,{ctor: "_Tuple2",_0: "background-position",_1: "0 0"}]));
+      var baseStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                              ,_0: "margin"
+                                              ,_1: "40px 25px"}
+                                             ,{ctor: "_Tuple2",_0: "display",_1: "block"}
+                                             ,{ctor: "_Tuple2",_0: "border",_1: "none"}
+                                             ,{ctor: "_Tuple2",_0: "padding",_1: "10px 0"}
+                                             ,{ctor: "_Tuple2",_0: "border-bottom",_1: "solid 1px #1abc9c"}
+                                             ,{ctor: "_Tuple2"
+                                              ,_0: "-webkit-transition"
+                                              ,_1: "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)"}
+                                             ,{ctor: "_Tuple2"
+                                              ,_0: "transition"
+                                              ,_1: "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)"}
+                                             ,{ctor: "_Tuple2"
+                                              ,_0: "background"
+                                              ,_1: "-webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #1abc9c 4%)"}
+                                             ,{ctor: "_Tuple2"
+                                              ,_0: "background"
+                                              ,_1: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #1abc9c 4%)"}
+                                             ,{ctor: "_Tuple2",_0: "background-position",_1: "-100% 0"}
+                                             ,{ctor: "_Tuple2",_0: "background-size",_1: "100% 100%"}
+                                             ,{ctor: "_Tuple2",_0: "background-repeat",_1: "no-repeat"}
+                                             ,{ctor: "_Tuple2",_0: "color",_1: "#0e6252"}]));
+      var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                           ,_0: ""
+                                           ,_1: baseStyle}
+                                          ,{ctor: "_Tuple2",_0: ":focus",_1: focusStyle}
+                                          ,{ctor: "_Tuple2",_0: ":valid",_1: focusStyle}
+                                          ,{ctor: "_Tuple2"
+                                           ,_0: "::-webkit-input-placeholder"
+                                           ,_1: placeholderStyle}
+                                          ,{ctor: "_Tuple2"
+                                           ,_0: ":focus::-webkit-input-placeholder"
+                                           ,_1: placeholderFocusStyle}
+                                          ,{ctor: "_Tuple2"
+                                           ,_0: ":valid::-webkit-input-placeholder"
+                                           ,_1: placeholderFocusStyle}]));
+      return A4($Widgets.Widget,styles,attrs,_U.list([]),render);
+   });
+   var passwordInput = F2(function (placeholderTxt,isRequired) {
+      return A3(input,placeholderTxt,"password",isRequired);
+   });
+   var textInput = F2(function (placeholderTxt,isRequired) {
+      return A3(input,placeholderTxt,"text",isRequired);
+   });
+   return _elm.MaterialWidgets.Input.values = {_op: _op
+                                              ,input: input
+                                              ,textInput: textInput
+                                              ,passwordInput: passwordInput};
 };Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
@@ -11617,6 +11719,7 @@ Elm.Main.make = function (_elm) {
    $Html = Elm.Html.make(_elm),
    $List = Elm.List.make(_elm),
    $MaterialWidgets$Button = Elm.MaterialWidgets.Button.make(_elm),
+   $MaterialWidgets$Input = Elm.MaterialWidgets.Input.make(_elm),
    $MaterialWidgets$Material = Elm.MaterialWidgets.Material.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
@@ -11627,9 +11730,15 @@ Elm.Main.make = function (_elm) {
       var lineBreak = $Widgets.fromHtml(A2($Html.div,
       _U.list([]),
       _U.list([])));
-      var label = A2($Widgets.withHeight,
-      "150px",
-      $Widgets.centeredText("Hello World!"));
+      var passwordField = A2($Widgets.withWidth,
+      "400px",
+      A2($MaterialWidgets$Input.passwordInput,
+      "A Password field",
+      true));
+      var inputField = A2($Widgets.withWidth,
+      "400px",
+      A2($MaterialWidgets$Input.textInput,"A Text field",true));
+      var label = $Widgets.centeredText("Hello World!");
       var cancel = A2($Widgets.withWidth,
       "60px",
       $MaterialWidgets$Button.button("Cancel"));
@@ -11643,7 +11752,7 @@ Elm.Main.make = function (_elm) {
       "600px",
       A2($MaterialWidgets$Material.material,
       $MaterialWidgets$Material.Deep,
-      _U.list([label,lineBreak,ok,cancel])))));
+      _U.list([label,inputField,passwordField,ok,cancel])))));
       return $Widgets.render(m);
    }();
    return _elm.Main.values = {_op: _op,main: main};
