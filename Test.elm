@@ -24,8 +24,8 @@ main =
     cancel = Button.button "Cancel" |> withWidth "60px"
 
     label = centeredText "Hello World!"
-    inputField = Input.textInput "A Text field" True |> withWidth "400px"
-    passwordField = Input.passwordInput "A Password field" True |> withWidth "400px"
+    inputField = Input.textInput "A Text field" True
+    passwordField = Input.passwordInput "A Password field" True
     lineBreak = fromHtml <| div [] []
 
     m = Material.material Material.Deep [label, inputField, passwordField, ok, cancel]

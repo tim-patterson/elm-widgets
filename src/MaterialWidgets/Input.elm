@@ -20,12 +20,17 @@ passwordInput placeholderTxt isRequired =
 input : String -> String -> Bool -> Widget
 input placeholderTxt inputType isRequired =
   let
-    baseStyle =
+    wrapperStyle =
       fromList
         [ ("margin", "40px 25px")
+        , ("padding", "10px 0")
+        ]
+    baseStyle =
+      fromList
+        [ ("margin", "0")
         , ("display", "block")
         , ("border", "none")
-        , ("padding", "10px 0")
+        , ("padding", "0")
         , ("border-bottom", "solid 1px #1abc9c")
         , ("-webkit-transition", "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)")
         , ("transition", "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)")
@@ -35,6 +40,7 @@ input placeholderTxt inputType isRequired =
         , ("background-size", "100% 100%")
         , ("background-repeat", "no-repeat")
         , ("color", "#0e6252")
+        , ("width", "100%")
         ]
     focusStyle =
       fromList
@@ -57,12 +63,13 @@ input placeholderTxt inputType isRequired =
         , ("display", "block !important")
         ]
     styles = fromList
-      [ ("", baseStyle)
-      , (":focus", focusStyle)
-      , (":valid", focusStyle)
-      , ("::-webkit-input-placeholder", placeholderStyle)
-      , (":focus::-webkit-input-placeholder", placeholderFocusStyle)
-      , (":valid::-webkit-input-placeholder", placeholderFocusStyle)]
+      [ ("", wrapperStyle)
+      , (" input", baseStyle)
+      , (" input:focus", focusStyle)
+      , (" input:valid", focusStyle)
+      , (" input::-webkit-input-placeholder", placeholderStyle)
+      , (" input:focus::-webkit-input-placeholder", placeholderFocusStyle)
+      , (" input:valid::-webkit-input-placeholder", placeholderFocusStyle)]
     attrs = [required isRequired, placeholder placeholderTxt, type' inputType]
   in
     Widget styles attrs [] render
@@ -71,6 +78,6 @@ input placeholderTxt inputType isRequired =
 render : Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))
 render styles attrs children =
   let
-    (attrsWithStyle, childrenHtml, mergedStyles) = renderHelper styles attrs children
+    (attrsWithStyle, childrenHtml, mergedStyles) = renderHelper styles [] children
   in
-    (Html.input attrsWithStyle childrenHtml, mergedStyles)
+    (Html.div attrsWithStyle [Html.input attrs childrenHtml], mergedStyles)
