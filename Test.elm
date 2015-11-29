@@ -1,10 +1,10 @@
 import Widgets exposing (..)
 import MaterialWidgets.Material as Material
 import MaterialWidgets.Button as Button
+import MaterialWidgets.Input as Input
 import Html exposing (div)
 
 -- TODO
--- Add input Element(animate focus bar)
 -- Animate ripple on button
 -- Radio Button element for switching themes
 -- Add Theme engine (css vars)
@@ -23,10 +23,12 @@ main =
     ok = Button.button "Ok" |> withWidth "60px"
     cancel = Button.button "Cancel" |> withWidth "60px"
 
-    label = centeredText "Hello World!" |> withHeight "150px"
+    label = centeredText "Hello World!"
+    inputField = Input.textInput "A Text field" True |> withWidth "400px"
+    passwordField = Input.passwordInput "A Password field" True |> withWidth "400px"
     lineBreak = fromHtml <| div [] []
 
-    m = Material.material Material.Deep [label, lineBreak, ok, cancel]
+    m = Material.material Material.Deep [label, inputField, passwordField, ok, cancel]
       |> withWidth "600px"
       |> centerHorizontally
       |> withStyle "" [("margin-top", "30px")]
