@@ -9,6 +9,8 @@ import Html exposing (Html, Attribute)
 import Html.Attributes exposing (placeholder, required, type')
 import Dict exposing (Dict, fromList, singleton)
 
+-- Ideas from here http://www.cssscript.com/pure-css-material-design-floating-input-placeholder/
+
 textInput : String -> Bool -> Widget
 textInput placeholderTxt isRequired =
   input placeholderTxt "text" isRequired

@@ -5,7 +5,6 @@ import MaterialWidgets.Input as Input
 import Html exposing (div)
 
 -- TODO
--- Animate ripple on button
 -- Radio Button element for switching themes
 -- Add Theme engine (css vars)
 -- Add option for text sizes(smallest small medium large largest)
@@ -20,13 +19,12 @@ import Html exposing (div)
 
 main =
   let
-    ok = Button.button "Ok" |> withWidth "60px"
-    cancel = Button.button "Cancel" |> withWidth "60px"
+    ok = Button.button "Ok" |> withWidth "80px"
+    cancel = Button.button "Cancel" |> withWidth "80px"
 
     label = centeredText "Hello World!"
     inputField = Input.textInput "A Text field" True
     passwordField = Input.passwordInput "A Password field" True
-    lineBreak = fromHtml <| div [] []
 
     m = Material.material Material.Deep [label, inputField, passwordField, ok, cancel]
       |> withWidth "600px"
