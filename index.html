@@ -11579,30 +11579,99 @@ Elm.MaterialWidgets.Button.make = function (_elm) {
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $List = Elm.List.make(_elm),
-   $MaterialWidgets$Material = Elm.MaterialWidgets.Material.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Widgets = Elm.Widgets.make(_elm);
    var _op = {};
+   var render = F3(function (styles,attrs,children) {
+      var _p0 = A3($Widgets.renderHelper,styles,attrs,children);
+      var attrsWithStyle = _p0._0;
+      var childrenHtml = _p0._1;
+      var mergedStyles = _p0._2;
+      return {ctor: "_Tuple2"
+             ,_0: A2($Html.button,attrsWithStyle,childrenHtml)
+             ,_1: mergedStyles};
+   });
    var button = function (label) {
-      return $Widgets.withNoSelect(A3($MaterialWidgets$Material.withShadow,
-      ":active",
-      $MaterialWidgets$Material.Shallow,
-      A3($Widgets.withStyle,
-      ":hover",
-      _U.list([{ctor: "_Tuple2",_0: "color",_1: "blue"}]),
-      A3($Widgets.withStyle,
-      "",
-      _U.list([{ctor: "_Tuple2",_0: "padding",_1: "12px"}
-              ,{ctor: "_Tuple2",_0: "margin",_1: "8px"}
-              ,{ctor: "_Tuple2",_0: "border-radius",_1: "4px"}
-              ,{ctor: "_Tuple2",_0: "display",_1: "inline-block"}
-              ,{ctor: "_Tuple2",_0: "cursor",_1: "pointer"}]),
-      A2($MaterialWidgets$Material.material,
-      $MaterialWidgets$Material.Medium,
-      _U.list([$Widgets.text(label)]))))));
+      var addRemoveRippleJs = "var cl = this.classList; clearTimeout(this.r); cl.remove(\'ripple\'); setTimeout(function(){cl.add(\'ripple\');},0); this.r = setTimeout(function(){ cl.remove(\'ripple\'); }, 2000);";
+      var rippleExpandedStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                                        ,_0: "width"
+                                                        ,_1: "150%"}
+                                                       ,{ctor: "_Tuple2",_0: "padding-top",_1: "150%"}
+                                                       ,{ctor: "_Tuple2",_0: "opacity",_1: "0"}
+                                                       ,{ctor: "_Tuple2"
+                                                        ,_0: "transition"
+                                                        ,_1: "width .2s ease-out, padding-top .2s ease-out, opacity 2s"}]));
+      var rippleBaseStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                                    ,_0: "content"
+                                                    ,_1: "\"\""}
+                                                   ,{ctor: "_Tuple2",_0: "position",_1: "absolute"}
+                                                   ,{ctor: "_Tuple2",_0: "top",_1: "50%"}
+                                                   ,{ctor: "_Tuple2",_0: "left",_1: "50%"}
+                                                   ,{ctor: "_Tuple2",_0: "display",_1: "block"}
+                                                   ,{ctor: "_Tuple2",_0: "width",_1: "0"}
+                                                   ,{ctor: "_Tuple2",_0: "padding-top",_1: "0"}
+                                                   ,{ctor: "_Tuple2",_0: "border-radius",_1: "100%"}
+                                                   ,{ctor: "_Tuple2"
+                                                    ,_0: "background-color"
+                                                    ,_1: "rgba(236, 240, 241, .4)"}
+                                                   ,{ctor: "_Tuple2"
+                                                    ,_0: "-webkit-transform"
+                                                    ,_1: "translate(-50%, -50%)"}
+                                                   ,{ctor: "_Tuple2"
+                                                    ,_0: "-moz-transform"
+                                                    ,_1: "translate(-50%, -50%)"}
+                                                   ,{ctor: "_Tuple2"
+                                                    ,_0: "-ms-transform"
+                                                    ,_1: "translate(-50%, -50%)"}
+                                                   ,{ctor: "_Tuple2"
+                                                    ,_0: "-o-transform"
+                                                    ,_1: "translate(-50%, -50%)"}
+                                                   ,{ctor: "_Tuple2"
+                                                    ,_0: "transform"
+                                                    ,_1: "translate(-50%, -50%)"}]));
+      var focusStyle = A2($Dict.singleton,
+      "background-color",
+      "#27ae60");
+      var baseStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                              ,_0: "display"
+                                              ,_1: "inline-block"}
+                                             ,{ctor: "_Tuple2",_0: "position",_1: "relative"}
+                                             ,{ctor: "_Tuple2",_0: "margin",_1: "15px"}
+                                             ,{ctor: "_Tuple2",_0: "padding",_1: "10px"}
+                                             ,{ctor: "_Tuple2",_0: "overflow",_1: "hidden"}
+                                             ,{ctor: "_Tuple2",_0: "border-width",_1: "0"}
+                                             ,{ctor: "_Tuple2",_0: "outline",_1: "none"}
+                                             ,{ctor: "_Tuple2",_0: "border-radius",_1: "2px"}
+                                             ,{ctor: "_Tuple2"
+                                              ,_0: "box-shadow"
+                                              ,_1: "0 1px 4px rgba(0, 0, 0, .6)"}
+                                             ,{ctor: "_Tuple2",_0: "background-color",_1: "#2ecc71"}
+                                             ,{ctor: "_Tuple2",_0: "color",_1: "#ecf0f1"}
+                                             ,{ctor: "_Tuple2"
+                                              ,_0: "transition"
+                                              ,_1: "background-color .3s"}]));
+      var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                           ,_0: ""
+                                           ,_1: baseStyle}
+                                          ,{ctor: "_Tuple2",_0: ":hover",_1: focusStyle}
+                                          ,{ctor: "_Tuple2",_0: ":focus",_1: focusStyle}
+                                          ,{ctor: "_Tuple2",_0: ":before",_1: rippleBaseStyle}
+                                          ,{ctor: "_Tuple2"
+                                           ,_0: ".ripple:before"
+                                           ,_1: rippleExpandedStyle}]));
+      return A4($Widgets.Widget,
+      styles,
+      _U.list([A2($Html$Attributes.attribute,
+      "onclick",
+      addRemoveRippleJs)]),
+      _U.list([$Widgets.centeredText(label)]),
+      render);
    };
    return _elm.MaterialWidgets.Button.values = {_op: _op
                                                ,button: button};
@@ -11728,7 +11797,6 @@ Elm.Main.make = function (_elm) {
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
-   $Html = Elm.Html.make(_elm),
    $List = Elm.List.make(_elm),
    $MaterialWidgets$Button = Elm.MaterialWidgets.Button.make(_elm),
    $MaterialWidgets$Input = Elm.MaterialWidgets.Input.make(_elm),
@@ -11739,9 +11807,6 @@ Elm.Main.make = function (_elm) {
    $Widgets = Elm.Widgets.make(_elm);
    var _op = {};
    var main = function () {
-      var lineBreak = $Widgets.fromHtml(A2($Html.div,
-      _U.list([]),
-      _U.list([])));
       var passwordField = A2($MaterialWidgets$Input.passwordInput,
       "A Password field",
       true);
@@ -11750,10 +11815,10 @@ Elm.Main.make = function (_elm) {
       true);
       var label = $Widgets.centeredText("Hello World!");
       var cancel = A2($Widgets.withWidth,
-      "60px",
+      "80px",
       $MaterialWidgets$Button.button("Cancel"));
       var ok = A2($Widgets.withWidth,
-      "60px",
+      "80px",
       $MaterialWidgets$Button.button("Ok"));
       var m = A3($Widgets.withStyle,
       "",
