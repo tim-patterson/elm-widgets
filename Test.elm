@@ -29,7 +29,7 @@ main =
     passwordField = Input.passwordInput "A Password field" True
 
     m = Material.material Material.Deep [label, inputField, passwordField, table, ok, cancel]
-      |> withWidth "800px"
+      |> withWidth "600px"
       |> centerHorizontally
       |> withStyle "" [("margin-top", "30px")]
   in
