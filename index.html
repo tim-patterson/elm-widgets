@@ -11412,8 +11412,7 @@ Elm.Widgets.make = function (_elm) {
                                                ,_1: "1px 0"}
                                               ,{ctor: "_Tuple2",_0: "margin",_1: "-2px 0"}
                                               ,{ctor: "_Tuple2",_0: "background-color",_1: "#e0e0e0"}
-                                              ,{ctor: "_Tuple2",_0: "min-height",_1: "100vh"}
-                                              ,{ctor: "_Tuple2",_0: "min-width",_1: "100vw"}
+                                              ,{ctor: "_Tuple2",_0: "height",_1: "100vh"}
                                               ,{ctor: "_Tuple2",_0: "overflow",_1: "auto"}]))]),
       _U.list([css,computedHtml]));
    };
@@ -11598,7 +11597,7 @@ Elm.MaterialWidgets.Button.make = function (_elm) {
              ,_1: mergedStyles};
    });
    var button = function (label) {
-      var addRemoveRippleJs = "var cl = this.classList; clearTimeout(this.r); cl.remove(\'ripple\'); setTimeout(function(){cl.add(\'ripple\');},0); this.r = setTimeout(function(){ cl.remove(\'ripple\'); }, 2000);";
+      var addRemoveRippleJs = "\n      var cl = this.classList;\n      clearTimeout(this.r);\n      cl.remove(\'ripple\');\n      setTimeout(function(){ cl.add(\'ripple\'); }, 0);\n      this.r = setTimeout(function(){ cl.remove(\'ripple\'); }, 2000);";
       var rippleExpandedStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                                         ,_0: "width"
                                                         ,_1: "150%"}
@@ -11789,6 +11788,154 @@ Elm.MaterialWidgets.Input.make = function (_elm) {
                                               ,input: input
                                               ,textInput: textInput
                                               ,passwordInput: passwordInput};
+};Elm.MaterialWidgets = Elm.MaterialWidgets || {};
+Elm.MaterialWidgets.Radio = Elm.MaterialWidgets.Radio || {};
+Elm.MaterialWidgets.Radio.make = function (_elm) {
+   "use strict";
+   _elm.MaterialWidgets = _elm.MaterialWidgets || {};
+   _elm.MaterialWidgets.Radio = _elm.MaterialWidgets.Radio || {};
+   if (_elm.MaterialWidgets.Radio.values)
+   return _elm.MaterialWidgets.Radio.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Widgets = Elm.Widgets.make(_elm);
+   var _op = {};
+   var render = F3(function (styles,attrs,children) {
+      var _p0 = A3($Widgets.renderHelper,styles,attrs,children);
+      var attrsWithStyle = _p0._0;
+      var childrenHtml = _p0._1;
+      var mergedStyles = _p0._2;
+      return {ctor: "_Tuple2"
+             ,_0: A2($Html.input,attrsWithStyle,childrenHtml)
+             ,_1: mergedStyles};
+   });
+   var radio = function (name) {
+      var baseStyle = $Dict.fromList(_U.list([]));
+      var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                           ,_0: ""
+                                           ,_1: baseStyle}]));
+      return A4($Widgets.Widget,
+      styles,
+      _U.list([$Html$Attributes.type$("radio")
+              ,$Html$Attributes.name(name)]),
+      _U.list([]),
+      render);
+   };
+   return _elm.MaterialWidgets.Radio.values = {_op: _op
+                                              ,radio: radio};
+};Elm.MaterialWidgets = Elm.MaterialWidgets || {};
+Elm.MaterialWidgets.Table = Elm.MaterialWidgets.Table || {};
+Elm.MaterialWidgets.Table.make = function (_elm) {
+   "use strict";
+   _elm.MaterialWidgets = _elm.MaterialWidgets || {};
+   _elm.MaterialWidgets.Table = _elm.MaterialWidgets.Table || {};
+   if (_elm.MaterialWidgets.Table.values)
+   return _elm.MaterialWidgets.Table.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Widgets = Elm.Widgets.make(_elm);
+   var _op = {};
+   var renderWidget = function (_p0) {
+      var _p1 = _p0;
+      return A3(_p1._3,_p1._0,_p1._1,_p1._2);
+   };
+   var renderRow = function (rowCells) {
+      return A2($Html.tr,
+      _U.list([]),
+      A2($List.map,
+      function (cell) {
+         return A2($Html.td,_U.list([]),_U.list([cell]));
+      },
+      rowCells));
+   };
+   var render = F6(function (headers,
+   data,
+   rowRenderer,
+   styles,
+   attrs,
+   children) {
+      var _p2 = A3($Widgets.renderHelper,styles,attrs,_U.list([]));
+      var attrsWithStyle = _p2._0;
+      var tableStyles = _p2._2;
+      var allCellsAsWidgets = A2($List.map,rowRenderer,data);
+      var allCellsAsHtmlAndStyles = A2($List.map,
+      $List.map(renderWidget),
+      allCellsAsWidgets);
+      var allCellsAsHtml = A2($List.map,
+      $List.map($Basics.fst),
+      allCellsAsHtmlAndStyles);
+      var htmlTable = A2($Html.table,
+      attrsWithStyle,
+      _U.list([A2($Html.thead,
+              _U.list([]),
+              _U.list([A2($Html.tr,
+              _U.list([]),
+              A2($List.map,
+              function (header) {
+                 return A2($Html.th,
+                 _U.list([]),
+                 _U.list([$Html.text(header)]));
+              },
+              headers))]))
+              ,A2($Html.tbody,
+              _U.list([]),
+              A2($List.map,renderRow,allCellsAsHtml))]));
+      var mergedStyles = A3($List.foldl,
+      F2(function (_p3,d) {
+         var _p4 = _p3;
+         return A2($Dict.union,_p4._1,d);
+      }),
+      tableStyles,
+      $List.concat(allCellsAsHtmlAndStyles));
+      return {ctor: "_Tuple2",_0: htmlTable,_1: mergedStyles};
+   });
+   var table = F3(function (headers,data,rowRenderer) {
+      var trHoverStyle = A2($Dict.singleton,
+      "background-color",
+      "#f0f0f0");
+      var tdStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                            ,_0: "padding"
+                                            ,_1: "10px"}
+                                           ,{ctor: "_Tuple2",_0: "border-bottom-style",_1: "solid"}
+                                           ,{ctor: "_Tuple2",_0: "border-bottom-color",_1: "#e0e0e0"}
+                                           ,{ctor: "_Tuple2",_0: "border-bottom-width",_1: "1px"}
+                                           ,{ctor: "_Tuple2",_0: "text-align",_1: "left"}]));
+      var baseStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                              ,_0: "width"
+                                              ,_1: "100%"}
+                                             ,{ctor: "_Tuple2",_0: "max-width",_1: "100%"}
+                                             ,{ctor: "_Tuple2",_0: "margin-bottom",_1: "20px"}
+                                             ,{ctor: "_Tuple2",_0: "border-collapse",_1: "collapse"}]));
+      var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                           ,_0: ""
+                                           ,_1: baseStyle}
+                                          ,{ctor: "_Tuple2",_0: " > * > tr > *",_1: tdStyle}
+                                          ,{ctor: "_Tuple2"
+                                           ,_0: " > tbody > tr:hover"
+                                           ,_1: trHoverStyle}]));
+      return A4($Widgets.Widget,
+      styles,
+      _U.list([]),
+      _U.list([]),
+      A3(render,headers,data,rowRenderer));
+   });
+   return _elm.MaterialWidgets.Table.values = {_op: _op
+                                              ,table: table};
 };Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
@@ -11801,11 +11948,29 @@ Elm.Main.make = function (_elm) {
    $MaterialWidgets$Button = Elm.MaterialWidgets.Button.make(_elm),
    $MaterialWidgets$Input = Elm.MaterialWidgets.Input.make(_elm),
    $MaterialWidgets$Material = Elm.MaterialWidgets.Material.make(_elm),
+   $MaterialWidgets$Table = Elm.MaterialWidgets.Table.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Widgets = Elm.Widgets.make(_elm);
    var _op = {};
+   var createTable = function () {
+      var rowRenderer = function (_p0) {
+         var _p1 = _p0;
+         return _U.list([$Widgets.text(_p1.name)
+                        ,$Widgets.text($Basics.toString(_p1.sides))
+                        ,A3($Widgets.withStyle,
+                        "",
+                        _U.list([{ctor: "_Tuple2",_0: "margin",_1: "0"}]),
+                        $MaterialWidgets$Button.button("Do something"))]);
+      };
+      return A3($MaterialWidgets$Table.table,
+      _U.list(["name","sides","action"]),
+      _U.list([{name: "circle",sides: 1}
+              ,{name: "square",sides: 4}
+              ,{name: "hexagon",sides: 6}]),
+      rowRenderer);
+   }();
    var main = function () {
       var passwordField = A2($MaterialWidgets$Input.passwordInput,
       "A Password field",
@@ -11820,6 +11985,7 @@ Elm.Main.make = function (_elm) {
       var ok = A2($Widgets.withWidth,
       "80px",
       $MaterialWidgets$Button.button("Ok"));
+      var table = createTable;
       var m = A3($Widgets.withStyle,
       "",
       _U.list([{ctor: "_Tuple2",_0: "margin-top",_1: "30px"}]),
@@ -11827,8 +11993,10 @@ Elm.Main.make = function (_elm) {
       "600px",
       A2($MaterialWidgets$Material.material,
       $MaterialWidgets$Material.Deep,
-      _U.list([label,inputField,passwordField,ok,cancel])))));
+      _U.list([label,inputField,passwordField,table,ok,cancel])))));
       return $Widgets.render(m);
    }();
-   return _elm.Main.values = {_op: _op,main: main};
+   return _elm.Main.values = {_op: _op
+                             ,main: main
+                             ,createTable: createTable};
 };</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script></body></html>
