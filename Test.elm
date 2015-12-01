@@ -7,14 +7,14 @@ import MaterialWidgets.Table as Table
 import Html exposing (div)
 
 -- TODO
--- Radio Button element for switching themes
+-- Radio Button element
 -- Add Theme engine (css vars)
 -- Add option for text sizes(smallest small medium large largest)
 -- These could just be strings consts that the theme engine would replace
+-- Create withTooltip method
 -- Create div element
 -- Create flexbox element + helpers
 -- Option to pass styles back to the "body" div
--- Create withTooltip method
 
 
 
@@ -29,7 +29,7 @@ main =
     passwordField = Input.passwordInput "A Password field" True
 
     m = Material.material Material.Deep [label, inputField, passwordField, table, ok, cancel]
-      |> withWidth "600px"
+      |> withWidth "800px"
       |> centerHorizontally
       |> withStyle "" [("margin-top", "30px")]
   in

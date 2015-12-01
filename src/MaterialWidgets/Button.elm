@@ -22,7 +22,8 @@ button label =
         , ("box-shadow", "0 1px 4px rgba(0, 0, 0, .6)")
         , ("background-color", "#2ecc71")
         , ("color", "#ecf0f1")
-        , ("transition", "background-color .3s") ]
+        , ("transition", "background-color .3s")
+        , ("cursor", "pointer") ]
     focusStyle =
       singleton "background-color" "#27ae60"
     rippleBaseStyle =
