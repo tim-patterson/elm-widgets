@@ -11652,9 +11652,8 @@ Elm.MaterialWidgets.Button.make = function (_elm) {
                                               ,_1: "0 1px 4px rgba(0, 0, 0, .6)"}
                                              ,{ctor: "_Tuple2",_0: "background-color",_1: "#2ecc71"}
                                              ,{ctor: "_Tuple2",_0: "color",_1: "#ecf0f1"}
-                                             ,{ctor: "_Tuple2"
-                                              ,_0: "transition"
-                                              ,_1: "background-color .3s"}]));
+                                             ,{ctor: "_Tuple2",_0: "transition",_1: "background-color .3s"}
+                                             ,{ctor: "_Tuple2",_0: "cursor",_1: "pointer"}]));
       var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                            ,_0: ""
                                            ,_1: baseStyle}
@@ -11990,7 +11989,7 @@ Elm.Main.make = function (_elm) {
       "",
       _U.list([{ctor: "_Tuple2",_0: "margin-top",_1: "30px"}]),
       $Widgets.centerHorizontally(A2($Widgets.withWidth,
-      "600px",
+      "800px",
       A2($MaterialWidgets$Material.material,
       $MaterialWidgets$Material.Deep,
       _U.list([label,inputField,passwordField,table,ok,cancel])))));
