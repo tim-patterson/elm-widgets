@@ -12,18 +12,7 @@ type Depth = Shallow | Medium | Deep
 
 material : Depth -> List Widget -> Widget
 material depth children =
-  let
-    style =
-      fromList
-        [ ("background", "white")
-        , ("margin", "16px")
-        , ("padding", "16px")
-        , ("border-radius", "2px")
-        ]
-    styles = singleton "" style
-    attrs = []
-  in
-    Widget styles attrs children render |> withShadow "" depth
+  Widget styles [] children render |> withShadow "" depth
 
 
 -- Adds a shadow to a component
@@ -47,3 +36,18 @@ render styles attrs children =
     (attrsWithStyle, childrenHtml, mergedStyles) = renderHelper styles attrs children
   in
     (div attrsWithStyle childrenHtml, mergedStyles)
+
+
+-- Styles
+styles : Styles
+styles =
+  singleton "" style
+
+style : Style
+style =
+  fromList
+    [ ("background", "white")
+    , ("margin", "16px")
+    , ("padding", "16px")
+    , ("border-radius", "2px")
+    ]

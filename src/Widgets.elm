@@ -1,6 +1,7 @@
 module Widgets
   ( Widget(..)
   , Styles
+  , Style
   , render
   , renderHelper
   , withStyle

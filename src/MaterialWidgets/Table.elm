@@ -8,31 +8,7 @@ import Dict exposing (Dict, fromList, singleton)
 
 table : List String -> List a -> (a -> List Widget) -> Widget
 table headers data rowRenderer =
-  let
-    baseStyle =
-      fromList
-        [ ("width", "100%")
-        , ("max-width", "100%")
-        , ("margin-bottom", "20px")
-        , ("border-collapse", "collapse")
-        ]
-    tdStyle =
-      fromList
-        [ ("padding", "10px")
-        , ("border-bottom-style", "solid")
-        , ("border-bottom-color", "#e0e0e0")
-        , ("border-bottom-width", "1px")
-        , ("text-align", "left")
-        ]
-    trHoverStyle =
-      singleton "background-color" "#f0f0f0"
-    styles = fromList
-      [ ("", baseStyle)
-      , (" > * > tr > *", tdStyle)
-      , (" > tbody > tr:hover", trHoverStyle)
-      ]
-  in
-    Widget styles [] [] <| render headers data rowRenderer
+  Widget styles [] [] <| render headers data rowRenderer
 
 
 render : List String -> List a -> (a -> List Widget) -> Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))
@@ -63,6 +39,42 @@ renderRow : List Html -> Html
 renderRow rowCells =
     tr [] <| List.map (\cell -> td [] [cell]) rowCells
 
+
 renderWidget : Widget -> (Html, (Dict Int Styles))
 renderWidget (Widget styles attrs children renderF) =
   renderF styles attrs children
+
+
+-- Styles
+styles : Styles
+styles = fromList
+  [ ("", baseStyle)
+  , (" > * > tr > *", tdStyle)
+  , (" > tbody > tr:hover", trHoverStyle)
+  ]
+
+
+baseStyle : Style
+baseStyle =
+  fromList
+    [ ("width", "100%")
+    , ("max-width", "100%")
+    , ("margin-bottom", "20px")
+    , ("border-collapse", "collapse")
+    ]
+
+
+tdStyle : Style
+tdStyle =
+  fromList
+    [ ("padding", "10px")
+    , ("border-bottom-style", "solid")
+    , ("border-bottom-color", "#e0e0e0")
+    , ("border-bottom-width", "1px")
+    , ("text-align", "left")
+    ]
+
+
+trHoverStyle : Style
+trHoverStyle =
+  singleton "background-color" "#f0f0f0"
