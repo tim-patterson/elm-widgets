@@ -2,11 +2,9 @@ module MaterialWidgets.Button (button) where
 
 import Widgets exposing (..)
 import Html exposing (Html, Attribute)
+import Html.Attributes exposing (attribute)
 import Dict exposing (Dict, fromList, singleton)
-import Html.Attributes as A
-
 -- Button ideas from here : http://codepen.io/sebj54/pen/oxluI
-
 
 button : String -> Widget
 button label =
@@ -55,9 +53,14 @@ button label =
       , (":focus", focusStyle)
       , (":before", rippleBaseStyle)
       , (".ripple:before", rippleExpandedStyle) ]
-    addRemoveRippleJs = "var cl = this.classList; clearTimeout(this.r); cl.remove('ripple'); setTimeout(function(){cl.add('ripple');},0); this.r = setTimeout(function(){ cl.remove('ripple'); }, 2000);"
+    addRemoveRippleJs = "
+      var cl = this.classList;
+      clearTimeout(this.r);
+      cl.remove('ripple');
+      setTimeout(function(){ cl.add('ripple'); }, 0);
+      this.r = setTimeout(function(){ cl.remove('ripple'); }, 2000);"
   in
-    Widget styles [A.attribute "onclick" addRemoveRippleJs] [centeredText label] render
+    Widget styles [attribute "onclick" addRemoveRippleJs] [centeredText label] render
 
 
 render : Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))

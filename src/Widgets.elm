@@ -58,8 +58,7 @@ render (Widget styles attrs children renderF) =
       [ ("padding","1px 0")
       , ("margin","-2px 0")
       , ("background-color", "#e0e0e0")
-      , ("min-height", "100vh")
-      , ("min-width", "100vw")
+      , ("height", "100vh")
       , ("overflow", "auto")
       ]] [css, computedHtml]
 
@@ -107,6 +106,7 @@ renderHelper styles attrs children =
     mergedAttrs = (A.class <| "style" ++ (toString stylesId)) :: attrs
   in
     (mergedAttrs, childrenHtml, mergedStyles)
+
 
 -- Functions for creating hashcodes of styles etc
 -- The hashcodes are used to provide each css style with a unique
