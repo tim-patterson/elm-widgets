@@ -11303,10 +11303,7 @@ Elm.Widgets.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $String = Elm.String.make(_elm);
    var _op = {};
-   var renderHtmlWidget = F4(function (html,
-   styles,
-   attrs,
-   children) {
+   var renderHtmlWidget = F2(function (html,widget) {
       return {ctor: "_Tuple2",_0: html,_1: $Dict.empty};
    });
    var intWrap = function (i) {
@@ -11333,7 +11330,7 @@ Elm.Widgets.make = function (_elm) {
    var renderHelper = F3(function (styles,attrs,children) {
       var renderChild = function (_p0) {
          var _p1 = _p0;
-         return A3(_p1._3,_p1._0,_p1._1,_p1._2);
+         return _p1._3(_p1);
       };
       var childrenHtmlStyles = A2($List.map,renderChild,children);
       var childrenHtml = A2($List.map,$Basics.fst,childrenHtmlStyles);
@@ -11356,11 +11353,12 @@ Elm.Widgets.make = function (_elm) {
              ,_1: childrenHtml
              ,_2: mergedStyles};
    });
-   var renderTextWidget = F4(function (str,styles,attrs,children) {
-      var _p4 = A3(renderHelper,styles,attrs,children);
-      var attrsWithStyle = _p4._0;
-      var childrenHtml = _p4._1;
-      var mergedStyles = _p4._2;
+   var renderTextWidget = F2(function (str,_p4) {
+      var _p5 = _p4;
+      var _p6 = A3(renderHelper,_p5._0,_p5._1,_p5._2);
+      var attrsWithStyle = _p6._0;
+      var childrenHtml = _p6._1;
+      var mergedStyles = _p6._2;
       return {ctor: "_Tuple2"
              ,_0: A2($Html.span,
              attrsWithStyle,
@@ -11400,11 +11398,11 @@ Elm.Widgets.make = function (_elm) {
       _U.list([]),
       _U.list([$Html.text(body)]));
    };
-   var render = function (_p5) {
-      var _p6 = _p5;
-      var _p7 = A3(_p6._3,_p6._0,_p6._1,_p6._2);
-      var computedHtml = _p7._0;
-      var computedStyles = _p7._1;
+   var render = function (_p7) {
+      var _p8 = _p7;
+      var _p9 = _p8._3(_p8);
+      var computedHtml = _p9._0;
+      var computedStyles = _p9._1;
       var css = renderCssStyleSheet(computedStyles);
       return A2($Html.div,
       _U.list([$Html$Attributes.style(_U.list([{ctor: "_Tuple2"
@@ -11419,20 +11417,20 @@ Elm.Widgets.make = function (_elm) {
    var Widget = F4(function (a,b,c,d) {
       return {ctor: "Widget",_0: a,_1: b,_2: c,_3: d};
    });
-   var withStyle = F3(function (selector,styles,_p8) {
-      var _p9 = _p8;
-      var _p10 = _p9._0;
+   var withStyle = F3(function (selector,styles,_p10) {
+      var _p11 = _p10;
+      var _p12 = _p11._0;
       var wStyleForSelector = A2($Maybe.withDefault,
       $Dict.empty,
-      A2($Dict.get,selector,_p10));
+      A2($Dict.get,selector,_p12));
       var mergedStyleForSelector = A2($Dict.union,
       $Dict.fromList(styles),
       wStyleForSelector);
       var mergedWStyles = A3($Dict.insert,
       selector,
       mergedStyleForSelector,
-      _p10);
-      return A4(Widget,mergedWStyles,_p9._1,_p9._2,_p9._3);
+      _p12);
+      return A4(Widget,mergedWStyles,_p11._1,_p11._2,_p11._3);
    });
    var withWidth = F2(function (width,widget) {
       return A3(withStyle,
@@ -11526,19 +11524,20 @@ Elm.MaterialWidgets.Material.make = function (_elm) {
                                       ,{ctor: "_Tuple2",_0: "padding",_1: "16px"}
                                       ,{ctor: "_Tuple2",_0: "border-radius",_1: "2px"}]));
    var styles = A2($Dict.singleton,"",style);
-   var render = F3(function (styles,attrs,children) {
-      var _p0 = A3($Widgets.renderHelper,styles,attrs,children);
-      var attrsWithStyle = _p0._0;
-      var childrenHtml = _p0._1;
-      var mergedStyles = _p0._2;
+   var render = function (_p0) {
+      var _p1 = _p0;
+      var _p2 = A3($Widgets.renderHelper,_p1._0,_p1._1,_p1._2);
+      var attrsWithStyle = _p2._0;
+      var childrenHtml = _p2._1;
+      var mergedStyles = _p2._2;
       return {ctor: "_Tuple2"
              ,_0: A2($Html.div,attrsWithStyle,childrenHtml)
              ,_1: mergedStyles};
-   });
+   };
    var withShadow = F3(function (selector,depth,widget) {
       var shadow = function () {
-         var _p1 = depth;
-         switch (_p1.ctor)
+         var _p3 = depth;
+         switch (_p3.ctor)
          {case "Shallow": return {ctor: "_Tuple2"
                                  ,_0: "box-shadow"
                                  ,_1: "0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)"};
@@ -11652,15 +11651,16 @@ Elm.MaterialWidgets.Button.make = function (_elm) {
                                        ,{ctor: "_Tuple2"
                                         ,_0: ".ripple:before"
                                         ,_1: rippleExpandedStyle}]));
-   var render = F3(function (styles,attrs,children) {
-      var _p0 = A3($Widgets.renderHelper,styles,attrs,children);
-      var attrsWithStyle = _p0._0;
-      var childrenHtml = _p0._1;
-      var mergedStyles = _p0._2;
+   var render = function (_p0) {
+      var _p1 = _p0;
+      var _p2 = A3($Widgets.renderHelper,_p1._0,_p1._1,_p1._2);
+      var attrsWithStyle = _p2._0;
+      var childrenHtml = _p2._1;
+      var mergedStyles = _p2._2;
       return {ctor: "_Tuple2"
              ,_0: A2($Html.button,attrsWithStyle,childrenHtml)
              ,_1: mergedStyles};
-   });
+   };
    var button = function (label) {
       return A4($Widgets.Widget,
       styles,
@@ -11756,20 +11756,18 @@ Elm.MaterialWidgets.Input.make = function (_elm) {
                                        ,{ctor: "_Tuple2"
                                         ,_0: " input:valid::-webkit-input-placeholder"
                                         ,_1: placeholderFocusStyle}]));
-   var render = F3(function (styles,attrs,children) {
-      var _p0 = A3($Widgets.renderHelper,
-      styles,
-      _U.list([]),
-      children);
-      var attrsWithStyle = _p0._0;
-      var childrenHtml = _p0._1;
-      var mergedStyles = _p0._2;
+   var render = function (_p0) {
+      var _p1 = _p0;
+      var _p2 = A3($Widgets.renderHelper,_p1._0,_U.list([]),_p1._2);
+      var attrsWithStyle = _p2._0;
+      var childrenHtml = _p2._1;
+      var mergedStyles = _p2._2;
       return {ctor: "_Tuple2"
              ,_0: A2($Html.div,
              attrsWithStyle,
-             _U.list([A2($Html.input,attrs,childrenHtml)]))
+             _U.list([A2($Html.input,_p1._1,childrenHtml)]))
              ,_1: mergedStyles};
-   });
+   };
    var input = F3(function (placeholderTxt,inputType,isRequired) {
       var attrs = _U.list([$Html$Attributes.required(isRequired)
                           ,$Html$Attributes.placeholder(placeholderTxt)
@@ -11806,27 +11804,108 @@ Elm.MaterialWidgets.Radio.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $Widgets = Elm.Widgets.make(_elm);
    var _op = {};
-   var render = F3(function (styles,attrs,children) {
-      var _p0 = A3($Widgets.renderHelper,styles,attrs,children);
-      var attrsWithStyle = _p0._0;
-      var childrenHtml = _p0._1;
-      var mergedStyles = _p0._2;
+   var innerStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                            ,_0: "-webkit-transition"
+                                            ,_1: "all 0.25s ease-in-out"}
+                                           ,{ctor: "_Tuple2",_0: "transition",_1: "all 0.25s ease-in-out"}
+                                           ,{ctor: "_Tuple2",_0: "width",_1: "16px"}
+                                           ,{ctor: "_Tuple2",_0: "height",_1: "16px"}
+                                           ,{ctor: "_Tuple2",_0: "-webkit-transform",_1: "scale(0)"}
+                                           ,{ctor: "_Tuple2",_0: "-ms-transform",_1: "scale(0)"}
+                                           ,{ctor: "_Tuple2",_0: "transform",_1: "scale(0)"}
+                                           ,{ctor: "_Tuple2",_0: "display",_1: "block"}
+                                           ,{ctor: "_Tuple2",_0: "margin",_1: "2px"}
+                                           ,{ctor: "_Tuple2",_0: "border-radius",_1: "50%"}
+                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "#2ecc71"}
+                                           ,{ctor: "_Tuple2",_0: "opacity",_1: "0"}]));
+   var outerStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                            ,_0: "width"
+                                            ,_1: "20px"}
+                                           ,{ctor: "_Tuple2",_0: "height",_1: "20px"}
+                                           ,{ctor: "_Tuple2",_0: "display",_1: "block"}
+                                           ,{ctor: "_Tuple2",_0: "float",_1: "left"}
+                                           ,{ctor: "_Tuple2",_0: "margin",_1: "10px 9px 10px 10px"}
+                                           ,{ctor: "_Tuple2",_0: "border",_1: "3px solid #d0d0d0"}
+                                           ,{ctor: "_Tuple2",_0: "border-radius",_1: "50%"}
+                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "#fff"}]));
+   var focusStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                            ,_0: "-webkit-transform"
+                                            ,_1: "scale(1)"}
+                                           ,{ctor: "_Tuple2",_0: "-ms-transform",_1: "scale(1)"}
+                                           ,{ctor: "_Tuple2",_0: "transform",_1: "scale(1)"}
+                                           ,{ctor: "_Tuple2",_0: "opacity",_1: "1"}
+                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "#2ecc71"}]));
+   var checkedOuterStyle = A2($Dict.singleton,
+   "border",
+   "3px solid #2ecc71");
+   var checkedStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                              ,_0: "-webkit-transform"
+                                              ,_1: "scale(1)"}
+                                             ,{ctor: "_Tuple2",_0: "-ms-transform",_1: "scale(1)"}
+                                             ,{ctor: "_Tuple2",_0: "transform",_1: "scale(1)"}
+                                             ,{ctor: "_Tuple2",_0: "opacity",_1: "1"}]));
+   var inputStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                            ,_0: "width"
+                                            ,_1: "1px"}
+                                           ,{ctor: "_Tuple2",_0: "height",_1: "1px"}
+                                           ,{ctor: "_Tuple2",_0: "opacity",_1: "0"}]));
+   var hoverInnerStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                                 ,_0: "-webkit-transform"
+                                                 ,_1: "scale(0.5)"}
+                                                ,{ctor: "_Tuple2",_0: "-ms-transform",_1: "scale(0.5)"}
+                                                ,{ctor: "_Tuple2",_0: "transform",_1: "scale(0.5)"}
+                                                ,{ctor: "_Tuple2",_0: "opacity",_1: ".5"}]));
+   var baseStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                           ,_0: "margin"
+                                           ,_1: "0px 25px"}
+                                          ,{ctor: "_Tuple2",_0: "padding-right",_1: "20px"}
+                                          ,{ctor: "_Tuple2",_0: "font-size",_1: "18px"}
+                                          ,{ctor: "_Tuple2",_0: "line-height",_1: "49px"}
+                                          ,{ctor: "_Tuple2",_0: "cursor",_1: "pointer"}
+                                          ,{ctor: "_Tuple2",_0: "display",_1: "block"}]));
+   var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                        ,_0: ""
+                                        ,_1: baseStyle}
+                                       ,{ctor: "_Tuple2",_0: ":hover .inner",_1: hoverInnerStyle}
+                                       ,{ctor: "_Tuple2",_0: " input",_1: inputStyle}
+                                       ,{ctor: "_Tuple2"
+                                        ,_0: " input:checked + .outer .inner"
+                                        ,_1: checkedStyle}
+                                       ,{ctor: "_Tuple2"
+                                        ,_0: " input:checked + .outer"
+                                        ,_1: checkedOuterStyle}
+                                       ,{ctor: "_Tuple2"
+                                        ,_0: " input:focus + .outer .inner"
+                                        ,_1: focusStyle}
+                                       ,{ctor: "_Tuple2",_0: " .outer",_1: outerStyle}
+                                       ,{ctor: "_Tuple2",_0: " .inner",_1: innerStyle}]));
+   var render = F2(function (label,_p0) {
+      var _p1 = _p0;
+      var _p2 = A3($Widgets.renderHelper,_p1._0,_U.list([]),_p1._2);
+      var attrsWithStyle = _p2._0;
+      var childrenHtml = _p2._1;
+      var mergedStyles = _p2._2;
       return {ctor: "_Tuple2"
-             ,_0: A2($Html.input,attrsWithStyle,childrenHtml)
+             ,_0: A2($Html.label,
+             attrsWithStyle,
+             _U.list([A2($Html.input,_p1._1,childrenHtml)
+                     ,A2($Html.span,
+                     _U.list([$Html$Attributes.$class("outer")]),
+                     _U.list([A2($Html.span,
+                     _U.list([$Html$Attributes.$class("inner")]),
+                     _U.list([]))]))
+                     ,$Html.text(label)]))
              ,_1: mergedStyles};
    });
-   var radio = function (name) {
-      var baseStyle = $Dict.fromList(_U.list([]));
-      var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
-                                           ,_0: ""
-                                           ,_1: baseStyle}]));
+   var radio = F2(function (groupName,label) {
+      var attrs = _U.list([$Html$Attributes.type$("radio")
+                          ,$Html$Attributes.name(groupName)]);
       return A4($Widgets.Widget,
       styles,
-      _U.list([$Html$Attributes.type$("radio")
-              ,$Html$Attributes.name(name)]),
+      attrs,
       _U.list([]),
-      render);
-   };
+      render(label));
+   });
    return _elm.MaterialWidgets.Radio.values = {_op: _op
                                               ,radio: radio};
 };Elm.MaterialWidgets = Elm.MaterialWidgets || {};
@@ -11873,7 +11952,7 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
                                         ,_1: trHoverStyle}]));
    var renderWidget = function (_p0) {
       var _p1 = _p0;
-      return A3(_p1._3,_p1._0,_p1._1,_p1._2);
+      return _p1._3(_p1);
    };
    var renderRow = function (rowCells) {
       return A2($Html.tr,
@@ -11884,15 +11963,11 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
       },
       rowCells));
    };
-   var render = F6(function (headers,
-   data,
-   rowRenderer,
-   styles,
-   attrs,
-   children) {
-      var _p2 = A3($Widgets.renderHelper,styles,attrs,_U.list([]));
-      var attrsWithStyle = _p2._0;
-      var tableStyles = _p2._2;
+   var render = F4(function (headers,data,rowRenderer,_p2) {
+      var _p3 = _p2;
+      var _p4 = A3($Widgets.renderHelper,_p3._0,_p3._1,_U.list([]));
+      var attrsWithStyle = _p4._0;
+      var tableStyles = _p4._2;
       var allCellsAsWidgets = A2($List.map,rowRenderer,data);
       var allCellsAsHtmlAndStyles = A2($List.map,
       $List.map(renderWidget),
@@ -11917,9 +11992,9 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
               _U.list([]),
               A2($List.map,renderRow,allCellsAsHtml))]));
       var mergedStyles = A3($List.foldl,
-      F2(function (_p3,d) {
-         var _p4 = _p3;
-         return A2($Dict.union,_p4._1,d);
+      F2(function (_p5,d) {
+         var _p6 = _p5;
+         return A2($Dict.union,_p6._1,d);
       }),
       tableStyles,
       $List.concat(allCellsAsHtmlAndStyles));
@@ -11946,6 +12021,7 @@ Elm.Main.make = function (_elm) {
    $MaterialWidgets$Button = Elm.MaterialWidgets.Button.make(_elm),
    $MaterialWidgets$Input = Elm.MaterialWidgets.Input.make(_elm),
    $MaterialWidgets$Material = Elm.MaterialWidgets.Material.make(_elm),
+   $MaterialWidgets$Radio = Elm.MaterialWidgets.Radio.make(_elm),
    $MaterialWidgets$Table = Elm.MaterialWidgets.Table.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
@@ -11977,6 +12053,8 @@ Elm.Main.make = function (_elm) {
       "A Text field",
       true);
       var label = $Widgets.centeredText("Hello World!");
+      var radio2 = A2($MaterialWidgets$Radio.radio,"foo","Option 2");
+      var radio1 = A2($MaterialWidgets$Radio.radio,"foo","Option 1");
       var cancel = A2($Widgets.withWidth,
       "80px",
       $MaterialWidgets$Button.button("Cancel"));
@@ -11991,7 +12069,14 @@ Elm.Main.make = function (_elm) {
       "600px",
       A2($MaterialWidgets$Material.material,
       $MaterialWidgets$Material.Deep,
-      _U.list([label,inputField,passwordField,table,ok,cancel])))));
+      _U.list([label
+              ,inputField
+              ,passwordField
+              ,radio1
+              ,radio2
+              ,table
+              ,ok
+              ,cancel])))));
       return $Widgets.render(m);
    }();
    return _elm.Main.values = {_op: _op
