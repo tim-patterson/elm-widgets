@@ -11,8 +11,8 @@ button label =
   Widget styles [attribute "onclick" addRemoveRippleJs] [centeredText label] render
 
 
-render : Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))
-render styles attrs children =
+render : Widget -> (Html, (Dict Int Styles))
+render (Widget styles attrs children renderF) =
   let
     (attrsWithStyle, childrenHtml, mergedStyles) = renderHelper styles attrs children
   in

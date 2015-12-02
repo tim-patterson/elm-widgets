@@ -35,7 +35,7 @@ type Widget =
     Styles
     (List Attribute)
     (List Widget)
-    (Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles)))
+    (Widget -> (Html, (Dict Int Styles)))
 
 -- Style is a Dict of css property to css value
 type alias Style = Dict String String
@@ -50,9 +50,9 @@ type alias Styles = Dict String Style
 -- The outer most Widget will be wrapped in a div containing a style Element
 -- will the styles needed for the whole tree
 render : Widget -> Html
-render (Widget styles attrs children renderF) =
+render (Widget styles attrs children renderF as widget) =
   let
-    (computedHtml, computedStyles) = renderF styles attrs children
+    (computedHtml, computedStyles) = renderF widget
     css = renderCssStyleSheet computedStyles
   in
     div [A.style
@@ -98,8 +98,8 @@ renderHelper styles attrs children =
     stylesId = stylesHashCode(styles)
     stylesDict = Dict.singleton stylesId styles
 
-    renderChild (Widget childStyles childAttrs childChildren childRender) =
-      childRender childStyles childAttrs childChildren
+    renderChild (Widget childStyles childAttrs childChildren childRender as childWidget) =
+      childRender childWidget
 
     childrenHtmlStyles = List.map renderChild children
     childrenHtml = List.map fst childrenHtmlStyles
@@ -202,8 +202,8 @@ text str =
     (renderTextWidget str)
 
 -- renderHelper : Styles -> (List Attribute) -> List Widget -> (List Attribute, List Html, Dict Int Styles)
-renderTextWidget : String -> Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))
-renderTextWidget str styles attrs children =
+renderTextWidget : String -> Widget -> (Html, (Dict Int Styles))
+renderTextWidget str (Widget styles attrs children renderF) =
   let
     (attrsWithStyle, childrenHtml, mergedStyles) = renderHelper styles attrs children
   in
@@ -223,6 +223,6 @@ fromHtml html =
     []
     (renderHtmlWidget html)
 
-renderHtmlWidget : Html -> Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))
-renderHtmlWidget html styles attrs children =
+renderHtmlWidget : Html -> Widget -> (Html, (Dict Int Styles))
+renderHtmlWidget html widget =
   (html, Dict.empty)

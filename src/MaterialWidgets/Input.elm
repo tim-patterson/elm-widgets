@@ -27,8 +27,8 @@ input placeholderTxt inputType isRequired =
     Widget styles attrs [] render
 
 
-render : Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))
-render styles attrs children =
+render : Widget -> (Html, (Dict Int Styles))
+render (Widget styles attrs children renderF) =
   let
     (attrsWithStyle, childrenHtml, mergedStyles) = renderHelper styles [] children
   in

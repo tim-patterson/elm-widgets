@@ -11,8 +11,8 @@ table headers data rowRenderer =
   Widget styles [] [] <| render headers data rowRenderer
 
 
-render : List String -> List a -> (a -> List Widget) -> Styles -> (List Attribute) -> (List Widget) -> (Html, (Dict Int Styles))
-render headers data rowRenderer styles attrs children =
+render : List String -> List a -> (a -> List Widget) -> Widget -> (Html, (Dict Int Styles))
+render headers data rowRenderer (Widget styles attrs children renderF) =
   let
     allCellsAsWidgets = List.map rowRenderer data
     allCellsAsHtmlAndStyles = List.map (List.map renderWidget) allCellsAsWidgets
@@ -25,12 +25,10 @@ render headers data rowRenderer styles attrs children =
 
     htmlTable =
       Html.table attrsWithStyle
-        [
-          thead []
-            [
-              tr [] <| List.map (\header -> th [] [Html.text header]) headers
-            ],
-          tbody [] <| List.map renderRow allCellsAsHtml
+        [ thead []
+          [ tr [] <| List.map (\header -> th [] [Html.text header]) headers
+          ]
+        , tbody [] <| List.map renderRow allCellsAsHtml
         ]
   in
     (htmlTable, mergedStyles)
@@ -41,8 +39,8 @@ renderRow rowCells =
 
 
 renderWidget : Widget -> (Html, (Dict Int Styles))
-renderWidget (Widget styles attrs children renderF) =
-  renderF styles attrs children
+renderWidget (Widget styles attrs children renderF as widget) =
+  renderF widget
 
 
 -- Styles
