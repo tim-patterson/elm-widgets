@@ -67,7 +67,7 @@ tdStyle =
   fromList
     [ ("padding", "10px")
     , ("border-bottom-style", "solid")
-    , ("border-bottom-color", "#e0e0e0")
+    , ("border-bottom-color", "@divider-color")
     , ("border-bottom-width", "1px")
     , ("text-align", "left")
     ]
@@ -75,4 +75,4 @@ tdStyle =
 
 trHoverStyle : Style
 trHoverStyle =
-  singleton "background-color" "#f0f0f0"
+  singleton "background-color" "@background-hover-color"

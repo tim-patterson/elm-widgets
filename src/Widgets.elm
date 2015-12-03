@@ -8,6 +8,7 @@ module Widgets
   , withWidth
   , withHeight
   , withNoSelect
+  , withOnClick
   , centerHorizontally
   , text
   , centeredText
@@ -17,6 +18,8 @@ module Widgets
 import Dict exposing (Dict)
 import Html exposing (Html, Attribute, node, div, span)
 import Html.Attributes as A
+import Html.Events exposing (onClick)
+import Signal exposing (Address)
 import Maybe
 import String
 import Char
@@ -45,15 +48,17 @@ type alias Style = Dict String String
 -- selector, the same generated classname will be added to the owning Widget
 type alias Styles = Dict String Style
 
+type alias Theme = Dict String String
+
 
 -- Function to render the final Widget tree into html.
 -- The outer most Widget will be wrapped in a div containing a style Element
 -- will the styles needed for the whole tree
-render : Widget -> Html
-render (Widget styles attrs children renderF as widget) =
+render : Widget -> Dict String String -> Html
+render (Widget styles attrs children renderF as widget) theme =
   let
     (computedHtml, computedStyles) = renderF widget
-    css = renderCssStyleSheet computedStyles
+    css = renderCssStyleSheet <| applyTheme theme computedStyles
   in
     div [A.style
       [ ("padding","1px 0")
@@ -62,6 +67,20 @@ render (Widget styles attrs children renderF as widget) =
       , ("height", "100vh")
       , ("overflow", "auto")
       ]] [css, computedHtml]
+
+
+applyTheme : Theme -> Dict Int Styles -> Dict Int Styles
+applyTheme theme stylesByHash =
+  let
+    mapStyle prop val =
+      Dict.get val theme |> Maybe.withDefault val
+    mapStyles selector style =
+      Dict.map mapStyle style
+    mapStylesByHash hash styles =
+      Dict.map mapStyles styles
+  in
+    Dict.map mapStylesByHash stylesByHash
+
 
 renderCssStyleSheet : Dict Int Styles -> Html
 renderCssStyleSheet stylesByHash =
@@ -186,6 +205,9 @@ withNoSelect widget =
       ("user-select", "none")
     ] widget
 
+withOnClick : Address a -> a -> Widget -> Widget
+withOnClick address action (Widget wStyles wAttrs wChildren wRenderF) =
+  Widget wStyles ( (onClick address action) :: wAttrs) wChildren wRenderF
 
 -- Simple text Widget, wraps text in a span so it can be styled etc
 

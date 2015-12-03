@@ -43,8 +43,8 @@ baseStyle =
     , ("outline", "none")
     , ("border-radius", "2px")
     , ("box-shadow", "0 1px 4px rgba(0, 0, 0, .6)")
-    , ("background-color", "#2ecc71")
-    , ("color", "#ecf0f1")
+    , ("background-color", "@primary-color")
+    , ("color", "@text-on-primary")
     , ("transition", "background-color .3s")
     , ("cursor", "pointer")
     ]
@@ -52,7 +52,7 @@ baseStyle =
 
 focusStyle : Style
 focusStyle =
-  singleton "background-color" "#27ae60"
+  singleton "background-color" "@primary-hover-color"
 
 rippleBaseStyle : Style
 rippleBaseStyle =

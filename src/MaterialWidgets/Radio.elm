@@ -6,10 +6,10 @@ import Dict exposing (Dict, fromList, singleton)
 import Html.Attributes as A exposing (type', name, class)
 
 
-radio : String -> String -> Widget
-radio groupName label=
+radio : String -> String -> Bool-> Widget
+radio groupName label checked=
   let
-    attrs = [type' "radio", name groupName]
+    attrs = [type' "radio", name groupName, A.checked checked]
   in
     Widget styles attrs [] <| render label
 
@@ -87,7 +87,10 @@ checkedStyle =
 
 checkedOuterStyle : Style
 checkedOuterStyle =
-  singleton "border" "3px solid #2ecc71"
+  fromList
+    [ ("border", "3px solid")
+    , ("border-color", "@primary-color")
+    ]
 
 
 focusStyle : Style
@@ -97,7 +100,7 @@ focusStyle =
     , ("-ms-transform", "scale(1)")
     , ("transform", "scale(1)")
     , ("opacity", "1")
-    , ("background-color", "#2ecc71")
+    , ("background-color", "@primary-color")
     ]
 
 outerStyle : Style
@@ -108,9 +111,9 @@ outerStyle =
     , ("display", "block")
     , ("float", "left")
     , ("margin", "10px 9px 10px 10px")
-    , ("border", "3px solid #d0d0d0")
+    , ("border", "3px solid")
+    , ("border-color", "@hint-text")
     , ("border-radius" ,"50%")
-    , ("background-color", "#fff")
     ]
 
 innerStyle : Style
@@ -126,6 +129,6 @@ innerStyle =
     , ("display", "block")
     , ("margin", "2px")
     , ("border-radius", "50%")
-    , ("background-color", "#2ecc71")
+    , ("background-color", "@primary-color")
     , ("opacity", "0")
     ]

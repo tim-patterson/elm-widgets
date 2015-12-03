@@ -64,15 +64,14 @@ baseStyle =
     , ("display", "block")
     , ("border", "none")
     , ("padding", "0")
-    , ("border-bottom", "solid 1px #1abc9c")
+    , ("border-bottom", "solid 2px")
+    , ("border-bottom-color", "@primary-color")
     , ("-webkit-transition", "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)")
     , ("transition", "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)")
-    , ("background", "-webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #1abc9c 4%)")
-    , ("background", "linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #1abc9c 4%)")
     , ("background-position", "-100% 0")
     , ("background-size", "100% 100%")
     , ("background-repeat", "no-repeat")
-    , ("color", "#0e6252")
+    , ("color", "@hint-text")
     , ("width", "100%")
     ]
 
@@ -97,7 +96,7 @@ placeholderStyle =
 placeholderFocusStyle : Style
 placeholderFocusStyle =
   fromList
-    [ ("color", "#1abc9c")
+    [ ("color", "@primary-color")
     , ("font-size", "11px")
     , ("-webkit-transform", "translateY(-20px)")
     , ("transform", "translateY(-20px)")

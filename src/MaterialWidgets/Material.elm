@@ -46,7 +46,7 @@ styles =
 style : Style
 style =
   fromList
-    [ ("background", "white")
+    [ ("background", "@background-color")
     , ("margin", "16px")
     , ("padding", "16px")
     , ("border-radius", "2px")
