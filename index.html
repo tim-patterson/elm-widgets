@@ -11284,6 +11284,135 @@ Elm.Html.Attributes.make = function (_elm) {
                                         ,manifest: manifest
                                         ,property: property
                                         ,attribute: attribute};
+};Elm.Html = Elm.Html || {};
+Elm.Html.Events = Elm.Html.Events || {};
+Elm.Html.Events.make = function (_elm) {
+   "use strict";
+   _elm.Html = _elm.Html || {};
+   _elm.Html.Events = _elm.Html.Events || {};
+   if (_elm.Html.Events.values) return _elm.Html.Events.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Json$Decode = Elm.Json.Decode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $VirtualDom = Elm.VirtualDom.make(_elm);
+   var _op = {};
+   var keyCode = A2($Json$Decode._op[":="],
+   "keyCode",
+   $Json$Decode.$int);
+   var targetChecked = A2($Json$Decode.at,
+   _U.list(["target","checked"]),
+   $Json$Decode.bool);
+   var targetValue = A2($Json$Decode.at,
+   _U.list(["target","value"]),
+   $Json$Decode.string);
+   var defaultOptions = $VirtualDom.defaultOptions;
+   var Options = F2(function (a,b) {
+      return {stopPropagation: a,preventDefault: b};
+   });
+   var onWithOptions = $VirtualDom.onWithOptions;
+   var on = $VirtualDom.on;
+   var messageOn = F3(function (name,addr,msg) {
+      return A3(on,
+      name,
+      $Json$Decode.value,
+      function (_p0) {
+         return A2($Signal.message,addr,msg);
+      });
+   });
+   var onClick = messageOn("click");
+   var onDoubleClick = messageOn("dblclick");
+   var onMouseMove = messageOn("mousemove");
+   var onMouseDown = messageOn("mousedown");
+   var onMouseUp = messageOn("mouseup");
+   var onMouseEnter = messageOn("mouseenter");
+   var onMouseLeave = messageOn("mouseleave");
+   var onMouseOver = messageOn("mouseover");
+   var onMouseOut = messageOn("mouseout");
+   var onBlur = messageOn("blur");
+   var onFocus = messageOn("focus");
+   var onSubmit = messageOn("submit");
+   var onKey = F3(function (name,addr,handler) {
+      return A3(on,
+      name,
+      keyCode,
+      function (code) {
+         return A2($Signal.message,addr,handler(code));
+      });
+   });
+   var onKeyUp = onKey("keyup");
+   var onKeyDown = onKey("keydown");
+   var onKeyPress = onKey("keypress");
+   return _elm.Html.Events.values = {_op: _op
+                                    ,onBlur: onBlur
+                                    ,onFocus: onFocus
+                                    ,onSubmit: onSubmit
+                                    ,onKeyUp: onKeyUp
+                                    ,onKeyDown: onKeyDown
+                                    ,onKeyPress: onKeyPress
+                                    ,onClick: onClick
+                                    ,onDoubleClick: onDoubleClick
+                                    ,onMouseMove: onMouseMove
+                                    ,onMouseDown: onMouseDown
+                                    ,onMouseUp: onMouseUp
+                                    ,onMouseEnter: onMouseEnter
+                                    ,onMouseLeave: onMouseLeave
+                                    ,onMouseOver: onMouseOver
+                                    ,onMouseOut: onMouseOut
+                                    ,on: on
+                                    ,onWithOptions: onWithOptions
+                                    ,defaultOptions: defaultOptions
+                                    ,targetValue: targetValue
+                                    ,targetChecked: targetChecked
+                                    ,keyCode: keyCode
+                                    ,Options: Options};
+};Elm.StartApp = Elm.StartApp || {};
+Elm.StartApp.Simple = Elm.StartApp.Simple || {};
+Elm.StartApp.Simple.make = function (_elm) {
+   "use strict";
+   _elm.StartApp = _elm.StartApp || {};
+   _elm.StartApp.Simple = _elm.StartApp.Simple || {};
+   if (_elm.StartApp.Simple.values)
+   return _elm.StartApp.Simple.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var start = function (config) {
+      var update = F2(function (maybeAction,model) {
+         var _p0 = maybeAction;
+         if (_p0.ctor === "Just") {
+               return A2(config.update,_p0._0,model);
+            } else {
+               return _U.crashCase("StartApp.Simple",
+               {start: {line: 91,column: 7},end: {line: 96,column: 52}},
+               _p0)("This should never happen.");
+            }
+      });
+      var actions = $Signal.mailbox($Maybe.Nothing);
+      var address = A2($Signal.forwardTo,actions.address,$Maybe.Just);
+      var model = A3($Signal.foldp,
+      update,
+      config.model,
+      actions.signal);
+      return A2($Signal.map,config.view(address),model);
+   };
+   var Config = F3(function (a,b,c) {
+      return {model: a,view: b,update: c};
+   });
+   return _elm.StartApp.Simple.values = {_op: _op
+                                        ,Config: Config
+                                        ,start: start};
 };Elm.Widgets = Elm.Widgets || {};
 Elm.Widgets.make = function (_elm) {
    "use strict";
@@ -11297,6 +11426,7 @@ Elm.Widgets.make = function (_elm) {
    $Dict = Elm.Dict.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
@@ -11398,12 +11528,26 @@ Elm.Widgets.make = function (_elm) {
       _U.list([]),
       _U.list([$Html.text(body)]));
    };
-   var render = function (_p7) {
+   var applyTheme = F2(function (theme,stylesByHash) {
+      var mapStyle = F2(function (prop,val) {
+         return A2($Maybe.withDefault,val,A2($Dict.get,val,theme));
+      });
+      var mapStyles = F2(function (selector,style) {
+         return A2($Dict.map,mapStyle,style);
+      });
+      var mapStylesByHash = F2(function (hash,styles) {
+         return A2($Dict.map,mapStyles,styles);
+      });
+      return A2($Dict.map,mapStylesByHash,stylesByHash);
+   });
+   var render = F2(function (_p7,theme) {
       var _p8 = _p7;
       var _p9 = _p8._3(_p8);
       var computedHtml = _p9._0;
       var computedStyles = _p9._1;
-      var css = renderCssStyleSheet(computedStyles);
+      var css = renderCssStyleSheet(A2(applyTheme,
+      theme,
+      computedStyles));
       return A2($Html.div,
       _U.list([$Html$Attributes.style(_U.list([{ctor: "_Tuple2"
                                                ,_0: "padding"
@@ -11413,7 +11557,7 @@ Elm.Widgets.make = function (_elm) {
                                               ,{ctor: "_Tuple2",_0: "height",_1: "100vh"}
                                               ,{ctor: "_Tuple2",_0: "overflow",_1: "auto"}]))]),
       _U.list([css,computedHtml]));
-   };
+   });
    var Widget = F4(function (a,b,c,d) {
       return {ctor: "Widget",_0: a,_1: b,_2: c,_3: d};
    });
@@ -11465,6 +11609,16 @@ Elm.Widgets.make = function (_elm) {
               ,{ctor: "_Tuple2",_0: "user-select",_1: "none"}]),
       widget);
    };
+   var withOnClick = F3(function (address,action,_p13) {
+      var _p14 = _p13;
+      return A4(Widget,
+      _p14._0,
+      A2($List._op["::"],
+      A2($Html$Events.onClick,address,action),
+      _p14._1),
+      _p14._2,
+      _p14._3);
+   });
    var text = function (str) {
       return A4(Widget,
       $Dict.empty,
@@ -11493,6 +11647,7 @@ Elm.Widgets.make = function (_elm) {
                                 ,withWidth: withWidth
                                 ,withHeight: withHeight
                                 ,withNoSelect: withNoSelect
+                                ,withOnClick: withOnClick
                                 ,centerHorizontally: centerHorizontally
                                 ,text: text
                                 ,centeredText: centeredText
@@ -11519,7 +11674,7 @@ Elm.MaterialWidgets.Material.make = function (_elm) {
    var _op = {};
    var style = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                        ,_0: "background"
-                                       ,_1: "white"}
+                                       ,_1: "@background-color"}
                                       ,{ctor: "_Tuple2",_0: "margin",_1: "16px"}
                                       ,{ctor: "_Tuple2",_0: "padding",_1: "16px"}
                                       ,{ctor: "_Tuple2",_0: "border-radius",_1: "2px"}]));
@@ -11624,7 +11779,7 @@ Elm.MaterialWidgets.Button.make = function (_elm) {
                                                  ,_1: "translate(-50%, -50%)"}]));
    var focusStyle = A2($Dict.singleton,
    "background-color",
-   "#27ae60");
+   "@primary-hover-color");
    var baseStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                            ,_0: "display"
                                            ,_1: "inline-block"}
@@ -11638,8 +11793,8 @@ Elm.MaterialWidgets.Button.make = function (_elm) {
                                           ,{ctor: "_Tuple2"
                                            ,_0: "box-shadow"
                                            ,_1: "0 1px 4px rgba(0, 0, 0, .6)"}
-                                          ,{ctor: "_Tuple2",_0: "background-color",_1: "#2ecc71"}
-                                          ,{ctor: "_Tuple2",_0: "color",_1: "#ecf0f1"}
+                                          ,{ctor: "_Tuple2",_0: "background-color",_1: "@primary-color"}
+                                          ,{ctor: "_Tuple2",_0: "color",_1: "@text-on-primary"}
                                           ,{ctor: "_Tuple2",_0: "transition",_1: "background-color .3s"}
                                           ,{ctor: "_Tuple2",_0: "cursor",_1: "pointer"}]));
    var styles = $Dict.fromList(_U.list([{ctor: "_Tuple2"
@@ -11694,7 +11849,7 @@ Elm.MaterialWidgets.Input.make = function (_elm) {
    var _op = {};
    var placeholderFocusStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                                        ,_0: "color"
-                                                       ,_1: "#1abc9c"}
+                                                       ,_1: "@primary-color"}
                                                       ,{ctor: "_Tuple2",_0: "font-size",_1: "11px"}
                                                       ,{ctor: "_Tuple2"
                                                        ,_0: "-webkit-transform"
@@ -11719,23 +11874,20 @@ Elm.MaterialWidgets.Input.make = function (_elm) {
                                           ,{ctor: "_Tuple2",_0: "display",_1: "block"}
                                           ,{ctor: "_Tuple2",_0: "border",_1: "none"}
                                           ,{ctor: "_Tuple2",_0: "padding",_1: "0"}
-                                          ,{ctor: "_Tuple2",_0: "border-bottom",_1: "solid 1px #1abc9c"}
+                                          ,{ctor: "_Tuple2",_0: "border-bottom",_1: "solid 2px"}
+                                          ,{ctor: "_Tuple2"
+                                           ,_0: "border-bottom-color"
+                                           ,_1: "@primary-color"}
                                           ,{ctor: "_Tuple2"
                                            ,_0: "-webkit-transition"
                                            ,_1: "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)"}
                                           ,{ctor: "_Tuple2"
                                            ,_0: "transition"
                                            ,_1: "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)"}
-                                          ,{ctor: "_Tuple2"
-                                           ,_0: "background"
-                                           ,_1: "-webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #1abc9c 4%)"}
-                                          ,{ctor: "_Tuple2"
-                                           ,_0: "background"
-                                           ,_1: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #1abc9c 4%)"}
                                           ,{ctor: "_Tuple2",_0: "background-position",_1: "-100% 0"}
                                           ,{ctor: "_Tuple2",_0: "background-size",_1: "100% 100%"}
                                           ,{ctor: "_Tuple2",_0: "background-repeat",_1: "no-repeat"}
-                                          ,{ctor: "_Tuple2",_0: "color",_1: "#0e6252"}
+                                          ,{ctor: "_Tuple2",_0: "color",_1: "@hint-text"}
                                           ,{ctor: "_Tuple2",_0: "width",_1: "100%"}]));
    var wrapperStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                               ,_0: "margin"
@@ -11816,7 +11968,7 @@ Elm.MaterialWidgets.Radio.make = function (_elm) {
                                            ,{ctor: "_Tuple2",_0: "display",_1: "block"}
                                            ,{ctor: "_Tuple2",_0: "margin",_1: "2px"}
                                            ,{ctor: "_Tuple2",_0: "border-radius",_1: "50%"}
-                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "#2ecc71"}
+                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "@primary-color"}
                                            ,{ctor: "_Tuple2",_0: "opacity",_1: "0"}]));
    var outerStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                             ,_0: "width"
@@ -11825,19 +11977,22 @@ Elm.MaterialWidgets.Radio.make = function (_elm) {
                                            ,{ctor: "_Tuple2",_0: "display",_1: "block"}
                                            ,{ctor: "_Tuple2",_0: "float",_1: "left"}
                                            ,{ctor: "_Tuple2",_0: "margin",_1: "10px 9px 10px 10px"}
-                                           ,{ctor: "_Tuple2",_0: "border",_1: "3px solid #d0d0d0"}
-                                           ,{ctor: "_Tuple2",_0: "border-radius",_1: "50%"}
-                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "#fff"}]));
+                                           ,{ctor: "_Tuple2",_0: "border",_1: "3px solid"}
+                                           ,{ctor: "_Tuple2",_0: "border-color",_1: "@hint-text"}
+                                           ,{ctor: "_Tuple2",_0: "border-radius",_1: "50%"}]));
    var focusStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                             ,_0: "-webkit-transform"
                                             ,_1: "scale(1)"}
                                            ,{ctor: "_Tuple2",_0: "-ms-transform",_1: "scale(1)"}
                                            ,{ctor: "_Tuple2",_0: "transform",_1: "scale(1)"}
                                            ,{ctor: "_Tuple2",_0: "opacity",_1: "1"}
-                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "#2ecc71"}]));
-   var checkedOuterStyle = A2($Dict.singleton,
-   "border",
-   "3px solid #2ecc71");
+                                           ,{ctor: "_Tuple2"
+                                            ,_0: "background-color"
+                                            ,_1: "@primary-color"}]));
+   var checkedOuterStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                                   ,_0: "border"
+                                                   ,_1: "3px solid"}
+                                                  ,{ctor: "_Tuple2",_0: "border-color",_1: "@primary-color"}]));
    var checkedStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                               ,_0: "-webkit-transform"
                                               ,_1: "scale(1)"}
@@ -11897,9 +12052,10 @@ Elm.MaterialWidgets.Radio.make = function (_elm) {
                      ,$Html.text(label)]))
              ,_1: mergedStyles};
    });
-   var radio = F2(function (groupName,label) {
+   var radio = F3(function (groupName,label,checked) {
       var attrs = _U.list([$Html$Attributes.type$("radio")
-                          ,$Html$Attributes.name(groupName)]);
+                          ,$Html$Attributes.name(groupName)
+                          ,$Html$Attributes.checked(checked)]);
       return A4($Widgets.Widget,
       styles,
       attrs,
@@ -11929,12 +12085,14 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
    var _op = {};
    var trHoverStyle = A2($Dict.singleton,
    "background-color",
-   "#f0f0f0");
+   "@background-hover-color");
    var tdStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                          ,_0: "padding"
                                          ,_1: "10px"}
                                         ,{ctor: "_Tuple2",_0: "border-bottom-style",_1: "solid"}
-                                        ,{ctor: "_Tuple2",_0: "border-bottom-color",_1: "#e0e0e0"}
+                                        ,{ctor: "_Tuple2"
+                                         ,_0: "border-bottom-color"
+                                         ,_1: "@divider-color"}
                                         ,{ctor: "_Tuple2",_0: "border-bottom-width",_1: "1px"}
                                         ,{ctor: "_Tuple2",_0: "text-align",_1: "left"}]));
    var baseStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
@@ -12009,6 +12167,71 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
    });
    return _elm.MaterialWidgets.Table.values = {_op: _op
                                               ,table: table};
+};Elm.Themes = Elm.Themes || {};
+Elm.Themes.HueOnWhite = Elm.Themes.HueOnWhite || {};
+Elm.Themes.HueOnWhite.make = function (_elm) {
+   "use strict";
+   _elm.Themes = _elm.Themes || {};
+   _elm.Themes.HueOnWhite = _elm.Themes.HueOnWhite || {};
+   if (_elm.Themes.HueOnWhite.values)
+   return _elm.Themes.HueOnWhite.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm);
+   var _op = {};
+   var themeFromColor = function (_p0) {
+      var _p1 = _p0;
+      var _p6 = _p1._0;
+      var _p5 = _p1._2;
+      var _p4 = _p1._1;
+      var toCssColor = function (_p2) {
+         var _p3 = _p2;
+         return $String.concat(_U.list(["rgb("
+                                       ,$Basics.toString(_p3._0)
+                                       ,","
+                                       ,$Basics.toString(_p3._1)
+                                       ,","
+                                       ,$Basics.toString(_p3._2)
+                                       ,")"]));
+      };
+      var primaryColor = toCssColor({ctor: "_Tuple3"
+                                    ,_0: _p6
+                                    ,_1: _p4
+                                    ,_2: _p5});
+      var hoverColor = toCssColor({ctor: "_Tuple3"
+                                  ,_0: _p6 * 85 / 100 | 0
+                                  ,_1: _p4 * 85 / 100 | 0
+                                  ,_2: _p5 * 85 / 100 | 0});
+      return $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                     ,_0: "@background-color"
+                                     ,_1: "#ffffff"}
+                                    ,{ctor: "_Tuple2",_0: "@primary-text",_1: "#dfdfdf"}
+                                    ,{ctor: "_Tuple2",_0: "@secondary-text",_1: "#8a8a8a"}
+                                    ,{ctor: "_Tuple2",_0: "@hint-text",_1: "#999999"}
+                                    ,{ctor: "_Tuple2",_0: "@divider-color",_1: "#e0e0e0"}
+                                    ,{ctor: "_Tuple2",_0: "@background-hover-color",_1: "#f4f4f4"}
+                                    ,{ctor: "_Tuple2",_0: "@primary-color",_1: primaryColor}
+                                    ,{ctor: "_Tuple2",_0: "@primary-hover-color",_1: hoverColor}
+                                    ,{ctor: "_Tuple2",_0: "@text-on-primary",_1: "#ffffff"}]));
+   };
+   var blueTheme = themeFromColor({ctor: "_Tuple3"
+                                  ,_0: 54
+                                  ,_1: 141
+                                  ,_2: 202});
+   var greenTheme = themeFromColor({ctor: "_Tuple3"
+                                   ,_0: 46
+                                   ,_1: 204
+                                   ,_2: 113});
+   return _elm.Themes.HueOnWhite.values = {_op: _op
+                                          ,greenTheme: greenTheme
+                                          ,blueTheme: blueTheme
+                                          ,themeFromColor: themeFromColor};
 };Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
@@ -12017,6 +12240,7 @@ Elm.Main.make = function (_elm) {
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
    $List = Elm.List.make(_elm),
    $MaterialWidgets$Button = Elm.MaterialWidgets.Button.make(_elm),
    $MaterialWidgets$Input = Elm.MaterialWidgets.Input.make(_elm),
@@ -12026,6 +12250,8 @@ Elm.Main.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
+   $StartApp$Simple = Elm.StartApp.Simple.make(_elm),
+   $Themes$HueOnWhite = Elm.Themes.HueOnWhite.make(_elm),
    $Widgets = Elm.Widgets.make(_elm);
    var _op = {};
    var createTable = function () {
@@ -12039,13 +12265,26 @@ Elm.Main.make = function (_elm) {
                         $MaterialWidgets$Button.button("Do something"))]);
       };
       return A3($MaterialWidgets$Table.table,
-      _U.list(["name","sides","action"]),
-      _U.list([{name: "circle",sides: 1}
-              ,{name: "square",sides: 4}
-              ,{name: "hexagon",sides: 6}]),
+      _U.list(["Name","Sides","Action"]),
+      A2($List.map,
+      function (l) {
+         return {name: A2($Basics._op["++"],"foo",$Basics.toString(l))
+                ,sides: l};
+      },
+      _U.range(1,100)),
       rowRenderer);
    }();
-   var main = function () {
+   var update = F2(function (_p2,model) {
+      var _p3 = _p2;
+      return _p3._0;
+   });
+   var ChooseTheme = function (a) {
+      return {ctor: "ChooseTheme",_0: a};
+   };
+   var Blue = {ctor: "Blue"};
+   var Green = {ctor: "Green"};
+   var init = Green;
+   var view = F2(function (address,themeColor) {
       var passwordField = A2($MaterialWidgets$Input.passwordInput,
       "A Password field",
       true);
@@ -12053,8 +12292,6 @@ Elm.Main.make = function (_elm) {
       "A Text field",
       true);
       var label = $Widgets.centeredText("Hello World!");
-      var radio2 = A2($MaterialWidgets$Radio.radio,"foo","Option 2");
-      var radio1 = A2($MaterialWidgets$Radio.radio,"foo","Option 1");
       var cancel = A2($Widgets.withWidth,
       "80px",
       $MaterialWidgets$Button.button("Cancel"));
@@ -12062,6 +12299,20 @@ Elm.Main.make = function (_elm) {
       "80px",
       $MaterialWidgets$Button.button("Ok"));
       var table = createTable;
+      var radio2 = A3($Widgets.withOnClick,
+      address,
+      ChooseTheme(Green),
+      A3($MaterialWidgets$Radio.radio,
+      "foo",
+      "Green Theme",
+      _U.eq(themeColor,Green)));
+      var radio1 = A3($Widgets.withOnClick,
+      address,
+      ChooseTheme(Blue),
+      A3($MaterialWidgets$Radio.radio,
+      "foo",
+      "Blue Theme",
+      _U.eq(themeColor,Blue)));
       var m = A3($Widgets.withStyle,
       "",
       _U.list([{ctor: "_Tuple2",_0: "margin-top",_1: "30px"}]),
@@ -12077,9 +12328,26 @@ Elm.Main.make = function (_elm) {
               ,table
               ,ok
               ,cancel])))));
-      return $Widgets.render(m);
-   }();
+      var theme = function () {
+         var _p4 = themeColor;
+         if (_p4.ctor === "Green") {
+               return $Themes$HueOnWhite.greenTheme;
+            } else {
+               return $Themes$HueOnWhite.blueTheme;
+            }
+      }();
+      return A2($Widgets.render,m,theme);
+   });
+   var main = $StartApp$Simple.start({model: init
+                                     ,view: view
+                                     ,update: update});
    return _elm.Main.values = {_op: _op
                              ,main: main
+                             ,Green: Green
+                             ,Blue: Blue
+                             ,init: init
+                             ,ChooseTheme: ChooseTheme
+                             ,update: update
+                             ,view: view
                              ,createTable: createTable};
 };</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script></body></html>
