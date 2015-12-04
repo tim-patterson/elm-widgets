@@ -68,9 +68,7 @@ baseStyle =
     , ("border-bottom-color", "@primary-color")
     , ("-webkit-transition", "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)")
     , ("transition", "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)")
-    , ("background-position", "-100% 0")
-    , ("background-size", "100% 100%")
-    , ("background-repeat", "no-repeat")
+    , ("background-color", "transparent")
     , ("color", "@hint-text")
     , ("width", "100%")
     ]

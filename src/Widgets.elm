@@ -59,11 +59,14 @@ render (Widget styles attrs children renderF as widget) theme =
   let
     (computedHtml, computedStyles) = renderF widget
     css = renderCssStyleSheet <| applyTheme theme computedStyles
+    bgColor = Dict.get "@page-background" theme |> Maybe.withDefault "#fff"
+    fgColor = Dict.get "@primary-text" theme |> Maybe.withDefault "#000"
   in
     div [A.style
       [ ("padding","1px 0")
       , ("margin","-2px 0")
-      , ("background-color", "#e0e0e0")
+      , ("background-color", bgColor)
+      , ("color", fgColor)
       , ("height", "100vh")
       , ("overflow", "auto")
       ]] [css, computedHtml]

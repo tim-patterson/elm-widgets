@@ -1,4 +1,4 @@
-module Themes.HueOnWhite where
+module Themes.Light where
 
 import Dict exposing (Dict, fromList)
 import String
@@ -20,8 +20,9 @@ themeFromColor (r, b, g) =
     hoverColor = toCssColor (r * 85 // 100, b * 85 // 100, g * 85 // 100)
   in
     fromList
-      [ ("@background-color", "#ffffff") -- Color used for backgrounds
-      , ("@primary-text", "#dfdfdf") -- Color used for most text
+      [ ("@page-background", "#e0e0e0")
+      , ("@background-color", "#ffffff") -- Color used for backgrounds
+      , ("@primary-text", "#111111") -- Color used for most text
       , ("@secondary-text", "#8a8a8a")  -- Color used for secondary text
       , ("@hint-text", "#999999") -- Color used for hints, placeholders etc
       , ("@divider-color", "#e0e0e0")
