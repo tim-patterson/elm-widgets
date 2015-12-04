@@ -11542,6 +11542,12 @@ Elm.Widgets.make = function (_elm) {
    });
    var render = F2(function (_p7,theme) {
       var _p8 = _p7;
+      var fgColor = A2($Maybe.withDefault,
+      "#000",
+      A2($Dict.get,"@primary-text",theme));
+      var bgColor = A2($Maybe.withDefault,
+      "#fff",
+      A2($Dict.get,"@page-background",theme));
       var _p9 = _p8._3(_p8);
       var computedHtml = _p9._0;
       var computedStyles = _p9._1;
@@ -11553,7 +11559,8 @@ Elm.Widgets.make = function (_elm) {
                                                ,_0: "padding"
                                                ,_1: "1px 0"}
                                               ,{ctor: "_Tuple2",_0: "margin",_1: "-2px 0"}
-                                              ,{ctor: "_Tuple2",_0: "background-color",_1: "#e0e0e0"}
+                                              ,{ctor: "_Tuple2",_0: "background-color",_1: bgColor}
+                                              ,{ctor: "_Tuple2",_0: "color",_1: fgColor}
                                               ,{ctor: "_Tuple2",_0: "height",_1: "100vh"}
                                               ,{ctor: "_Tuple2",_0: "overflow",_1: "auto"}]))]),
       _U.list([css,computedHtml]));
@@ -11884,9 +11891,7 @@ Elm.MaterialWidgets.Input.make = function (_elm) {
                                           ,{ctor: "_Tuple2"
                                            ,_0: "transition"
                                            ,_1: "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)"}
-                                          ,{ctor: "_Tuple2",_0: "background-position",_1: "-100% 0"}
-                                          ,{ctor: "_Tuple2",_0: "background-size",_1: "100% 100%"}
-                                          ,{ctor: "_Tuple2",_0: "background-repeat",_1: "no-repeat"}
+                                          ,{ctor: "_Tuple2",_0: "background-color",_1: "transparent"}
                                           ,{ctor: "_Tuple2",_0: "color",_1: "@hint-text"}
                                           ,{ctor: "_Tuple2",_0: "width",_1: "100%"}]));
    var wrapperStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
@@ -12168,13 +12173,12 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
    return _elm.MaterialWidgets.Table.values = {_op: _op
                                               ,table: table};
 };Elm.Themes = Elm.Themes || {};
-Elm.Themes.HueOnWhite = Elm.Themes.HueOnWhite || {};
-Elm.Themes.HueOnWhite.make = function (_elm) {
+Elm.Themes.Light = Elm.Themes.Light || {};
+Elm.Themes.Light.make = function (_elm) {
    "use strict";
    _elm.Themes = _elm.Themes || {};
-   _elm.Themes.HueOnWhite = _elm.Themes.HueOnWhite || {};
-   if (_elm.Themes.HueOnWhite.values)
-   return _elm.Themes.HueOnWhite.values;
+   _elm.Themes.Light = _elm.Themes.Light || {};
+   if (_elm.Themes.Light.values) return _elm.Themes.Light.values;
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
@@ -12209,9 +12213,10 @@ Elm.Themes.HueOnWhite.make = function (_elm) {
                                   ,_1: _p4 * 85 / 100 | 0
                                   ,_2: _p5 * 85 / 100 | 0});
       return $Dict.fromList(_U.list([{ctor: "_Tuple2"
-                                     ,_0: "@background-color"
-                                     ,_1: "#ffffff"}
-                                    ,{ctor: "_Tuple2",_0: "@primary-text",_1: "#dfdfdf"}
+                                     ,_0: "@page-background"
+                                     ,_1: "#e0e0e0"}
+                                    ,{ctor: "_Tuple2",_0: "@background-color",_1: "#ffffff"}
+                                    ,{ctor: "_Tuple2",_0: "@primary-text",_1: "#111111"}
                                     ,{ctor: "_Tuple2",_0: "@secondary-text",_1: "#8a8a8a"}
                                     ,{ctor: "_Tuple2",_0: "@hint-text",_1: "#999999"}
                                     ,{ctor: "_Tuple2",_0: "@divider-color",_1: "#e0e0e0"}
@@ -12228,10 +12233,39 @@ Elm.Themes.HueOnWhite.make = function (_elm) {
                                    ,_0: 46
                                    ,_1: 204
                                    ,_2: 113});
-   return _elm.Themes.HueOnWhite.values = {_op: _op
-                                          ,greenTheme: greenTheme
-                                          ,blueTheme: blueTheme
-                                          ,themeFromColor: themeFromColor};
+   return _elm.Themes.Light.values = {_op: _op
+                                     ,greenTheme: greenTheme
+                                     ,blueTheme: blueTheme
+                                     ,themeFromColor: themeFromColor};
+};Elm.Themes = Elm.Themes || {};
+Elm.Themes.Dark = Elm.Themes.Dark || {};
+Elm.Themes.Dark.make = function (_elm) {
+   "use strict";
+   _elm.Themes = _elm.Themes || {};
+   _elm.Themes.Dark = _elm.Themes.Dark || {};
+   if (_elm.Themes.Dark.values) return _elm.Themes.Dark.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var dark = $Dict.fromList(_U.list([{ctor: "_Tuple2"
+                                      ,_0: "@page-background"
+                                      ,_1: "#242424"}
+                                     ,{ctor: "_Tuple2",_0: "@background-color",_1: "#353535"}
+                                     ,{ctor: "_Tuple2",_0: "@primary-text",_1: "#ffffff"}
+                                     ,{ctor: "_Tuple2",_0: "@secondary-text",_1: "#b3b3b3"}
+                                     ,{ctor: "_Tuple2",_0: "@hint-text",_1: "#4d4d4d"}
+                                     ,{ctor: "_Tuple2",_0: "@divider-color",_1: "#303030"}
+                                     ,{ctor: "_Tuple2",_0: "@background-hover-color",_1: "#3d3d3d"}
+                                     ,{ctor: "_Tuple2",_0: "@primary-color",_1: "#679FCF"}
+                                     ,{ctor: "_Tuple2",_0: "@primary-hover-color",_1: "#3D84C2"}
+                                     ,{ctor: "_Tuple2",_0: "@text-on-primary",_1: "#ffffff"}]));
+   return _elm.Themes.Dark.values = {_op: _op,dark: dark};
 };Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
@@ -12251,7 +12285,8 @@ Elm.Main.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $StartApp$Simple = Elm.StartApp.Simple.make(_elm),
-   $Themes$HueOnWhite = Elm.Themes.HueOnWhite.make(_elm),
+   $Themes$Dark = Elm.Themes.Dark.make(_elm),
+   $Themes$Light = Elm.Themes.Light.make(_elm),
    $Widgets = Elm.Widgets.make(_elm);
    var _op = {};
    var createTable = function () {
@@ -12266,12 +12301,9 @@ Elm.Main.make = function (_elm) {
       };
       return A3($MaterialWidgets$Table.table,
       _U.list(["Name","Sides","Action"]),
-      A2($List.map,
-      function (l) {
-         return {name: A2($Basics._op["++"],"foo",$Basics.toString(l))
-                ,sides: l};
-      },
-      _U.range(1,100)),
+      _U.list([{name: "circle",sides: 1}
+              ,{name: "square",sides: 4}
+              ,{name: "hexagon",sides: 6}]),
       rowRenderer);
    }();
    var update = F2(function (_p2,model) {
@@ -12281,9 +12313,10 @@ Elm.Main.make = function (_elm) {
    var ChooseTheme = function (a) {
       return {ctor: "ChooseTheme",_0: a};
    };
+   var Dark = {ctor: "Dark"};
    var Blue = {ctor: "Blue"};
+   var init = Blue;
    var Green = {ctor: "Green"};
-   var init = Green;
    var view = F2(function (address,themeColor) {
       var passwordField = A2($MaterialWidgets$Input.passwordInput,
       "A Password field",
@@ -12299,18 +12332,25 @@ Elm.Main.make = function (_elm) {
       "80px",
       $MaterialWidgets$Button.button("Ok"));
       var table = createTable;
-      var radio2 = A3($Widgets.withOnClick,
+      var radioD = A3($Widgets.withOnClick,
+      address,
+      ChooseTheme(Dark),
+      A3($MaterialWidgets$Radio.radio,
+      "themeColor",
+      "Dark Theme",
+      _U.eq(themeColor,Dark)));
+      var radioG = A3($Widgets.withOnClick,
       address,
       ChooseTheme(Green),
       A3($MaterialWidgets$Radio.radio,
-      "foo",
+      "themeColor",
       "Green Theme",
       _U.eq(themeColor,Green)));
-      var radio1 = A3($Widgets.withOnClick,
+      var radioB = A3($Widgets.withOnClick,
       address,
       ChooseTheme(Blue),
       A3($MaterialWidgets$Radio.radio,
-      "foo",
+      "themeColor",
       "Blue Theme",
       _U.eq(themeColor,Blue)));
       var m = A3($Widgets.withStyle,
@@ -12323,18 +12363,18 @@ Elm.Main.make = function (_elm) {
       _U.list([label
               ,inputField
               ,passwordField
-              ,radio1
-              ,radio2
+              ,radioB
+              ,radioG
+              ,radioD
               ,table
               ,ok
               ,cancel])))));
       var theme = function () {
          var _p4 = themeColor;
-         if (_p4.ctor === "Green") {
-               return $Themes$HueOnWhite.greenTheme;
-            } else {
-               return $Themes$HueOnWhite.blueTheme;
-            }
+         switch (_p4.ctor)
+         {case "Green": return $Themes$Light.greenTheme;
+            case "Blue": return $Themes$Light.blueTheme;
+            default: return $Themes$Dark.dark;}
       }();
       return A2($Widgets.render,m,theme);
    });
@@ -12345,6 +12385,7 @@ Elm.Main.make = function (_elm) {
                              ,main: main
                              ,Green: Green
                              ,Blue: Blue
+                             ,Dark: Dark
                              ,init: init
                              ,ChooseTheme: ChooseTheme
                              ,update: update
