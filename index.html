@@ -11589,6 +11589,12 @@ Elm.Widgets.make = function (_elm) {
       _U.list([{ctor: "_Tuple2",_0: "width",_1: width}]),
       widget);
    });
+   var withMaxWidth = F2(function (width,widget) {
+      return A3(withStyle,
+      "",
+      _U.list([{ctor: "_Tuple2",_0: "max-width",_1: width}]),
+      widget);
+   });
    var withHeight = F2(function (height,widget) {
       return A3(withStyle,
       "",
@@ -11652,6 +11658,7 @@ Elm.Widgets.make = function (_elm) {
                                 ,renderHelper: renderHelper
                                 ,withStyle: withStyle
                                 ,withWidth: withWidth
+                                ,withMaxWidth: withMaxWidth
                                 ,withHeight: withHeight
                                 ,withNoSelect: withNoSelect
                                 ,withOnClick: withOnClick
@@ -11892,7 +11899,7 @@ Elm.MaterialWidgets.Input.make = function (_elm) {
                                            ,_0: "transition"
                                            ,_1: "all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1)"}
                                           ,{ctor: "_Tuple2",_0: "background-color",_1: "transparent"}
-                                          ,{ctor: "_Tuple2",_0: "color",_1: "@hint-text"}
+                                          ,{ctor: "_Tuple2",_0: "color",_1: "@secondary-text"}
                                           ,{ctor: "_Tuple2",_0: "width",_1: "100%"}]));
    var wrapperStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                               ,_0: "margin"
@@ -12091,6 +12098,7 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
    var trHoverStyle = A2($Dict.singleton,
    "background-color",
    "@background-hover-color");
+   var thStyle = A2($Dict.singleton,"border-bottom-width","2px");
    var tdStyle = $Dict.fromList(_U.list([{ctor: "_Tuple2"
                                          ,_0: "padding"
                                          ,_1: "10px"}
@@ -12110,6 +12118,7 @@ Elm.MaterialWidgets.Table.make = function (_elm) {
                                         ,_0: ""
                                         ,_1: baseStyle}
                                        ,{ctor: "_Tuple2",_0: " > * > tr > *",_1: tdStyle}
+                                       ,{ctor: "_Tuple2",_0: " > thead > tr > th",_1: thStyle}
                                        ,{ctor: "_Tuple2"
                                         ,_0: " > tbody > tr:hover"
                                         ,_1: trHoverStyle}]));
@@ -12260,7 +12269,7 @@ Elm.Themes.Dark.make = function (_elm) {
                                      ,{ctor: "_Tuple2",_0: "@primary-text",_1: "#ffffff"}
                                      ,{ctor: "_Tuple2",_0: "@secondary-text",_1: "#b3b3b3"}
                                      ,{ctor: "_Tuple2",_0: "@hint-text",_1: "#4d4d4d"}
-                                     ,{ctor: "_Tuple2",_0: "@divider-color",_1: "#303030"}
+                                     ,{ctor: "_Tuple2",_0: "@divider-color",_1: "#616161"}
                                      ,{ctor: "_Tuple2",_0: "@background-hover-color",_1: "#3d3d3d"}
                                      ,{ctor: "_Tuple2",_0: "@primary-color",_1: "#679FCF"}
                                      ,{ctor: "_Tuple2",_0: "@primary-hover-color",_1: "#3D84C2"}
@@ -12356,7 +12365,7 @@ Elm.Main.make = function (_elm) {
       var m = A3($Widgets.withStyle,
       "",
       _U.list([{ctor: "_Tuple2",_0: "margin-top",_1: "30px"}]),
-      $Widgets.centerHorizontally(A2($Widgets.withWidth,
+      $Widgets.centerHorizontally(A2($Widgets.withMaxWidth,
       "600px",
       A2($MaterialWidgets$Material.material,
       $MaterialWidgets$Material.Deep,
