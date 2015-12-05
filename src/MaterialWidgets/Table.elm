@@ -48,6 +48,7 @@ styles : Styles
 styles = fromList
   [ ("", baseStyle)
   , (" > * > tr > *", tdStyle)
+  , (" > thead > tr > th", thStyle)
   , (" > tbody > tr:hover", trHoverStyle)
   ]
 
@@ -71,6 +72,10 @@ tdStyle =
     , ("border-bottom-width", "1px")
     , ("text-align", "left")
     ]
+
+thStyle : Style
+thStyle =
+  singleton "border-bottom-width" "2px"
 
 
 trHoverStyle : Style

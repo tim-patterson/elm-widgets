@@ -65,7 +65,7 @@ view address themeColor =
       , table
       , ok, cancel
       ]
-      |> withWidth "600px"
+      |> withMaxWidth "600px"
       |> centerHorizontally
       |> withStyle "" [("margin-top", "30px")]
   in

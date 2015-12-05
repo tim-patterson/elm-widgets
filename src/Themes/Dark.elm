@@ -11,7 +11,7 @@ dark =
     , ("@primary-text", "#ffffff") -- Color used for most text
     , ("@secondary-text", "#b3b3b3")  -- Color used for secondary text
     , ("@hint-text", "#4d4d4d") -- Color used for hints, placeholders etc
-    , ("@divider-color", "#303030")
+    , ("@divider-color", "#616161")
     , ("@background-hover-color", "#3d3d3d")
     , ("@primary-color", "#679FCF") -- main color of the theme, eg green in this case
     , ("@primary-hover-color", "#3D84C2") -- color of buttons etc when hovered over

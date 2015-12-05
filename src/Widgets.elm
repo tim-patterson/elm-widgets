@@ -6,6 +6,7 @@ module Widgets
   , renderHelper
   , withStyle
   , withWidth
+  , withMaxWidth
   , withHeight
   , withNoSelect
   , withOnClick
@@ -184,6 +185,10 @@ withStyle selector styles (Widget wStyles wAttrs wChildren wRenderF) =
 withWidth : String -> Widget -> Widget
 withWidth width widget =
   withStyle "" [("width", width)] widget
+
+withMaxWidth : String -> Widget -> Widget
+withMaxWidth width widget =
+  withStyle "" [("max-width", width)] widget
 
 
 withHeight : String -> Widget -> Widget
